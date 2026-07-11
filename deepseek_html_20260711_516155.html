@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLOWER DM | 699cl.xyz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+            background: #0d0b14;
+            background-image: radial-gradient(circle at 10% 20%, #1f1530 0%, #0d0b14 90%);
+            color: #e8e0f0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(22, 18, 34, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 50px 40px;
+            border: 1px solid rgba(180, 120, 220, 0.18);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(180, 120, 220, 0.05) inset;
+        }
+
+        .logo {
+            font-size: 72px;
+            display: block;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 30px rgba(200, 130, 255, 0.2));
+        }
+
+        h1 {
+            font-size: 46px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #f2c4ff, #ff8dcb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(255, 140, 200, 0.15);
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #a995c2;
+            font-size: 18px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .domain {
+            display: inline-block;
+            background: rgba(180, 120, 220, 0.12);
+            border: 1px solid rgba(180, 120, 220, 0.2);
+            padding: 8px 28px;
+            border-radius: 60px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #d4b8f0;
+            letter-spacing: 0.8px;
+            margin-bottom: 30px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .status-text {
+            font-size: 16px;
+            color: #b8a0d0;
+        }
+
+        .status-text span {
+            color: #4ade80;
+            font-weight: 600;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 30px 0;
+        }
+
+        .info-card {
+            background: rgba(40, 30, 60, 0.4);
+            border-radius: 18px;
+            padding: 18px 16px;
+            border: 1px solid rgba(180, 120, 220, 0.08);
+            transition: 0.25s ease;
+        }
+
+        .info-card:hover {
+            background: rgba(60, 40, 90, 0.4);
+            border-color: rgba(200, 140, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .info-card .label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #7a6a8f;
+        }
+
+        .info-card .value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f0e6ff;
+            margin-top: 4px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(180, 120, 220, 0.1);
+            color: #7a6a8f;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #d4b8f0;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #f0e6ff;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .logo {
+                font-size: 52px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <span class="logo">🌸</span>
+    <h1>FLOWER DM</h1>
+    <div class="subtitle">Игровой проект</div>
+    <div class="domain">699cl.xyz</div>
+
+    <div class="status">
+        <span class="status-dot"></span>
+        <span class="status-text">Сайт работает — <span>готов к запуску</span></span>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-card">
+            <div class="label">🎮 IP сервера</div>
+            <div class="value">94.156.179.96:22005</div>
+        </div>
+        <div class="info-card">
+            <div class="label">📢 Статус</div>
+            <div class="value">В разработке</div>
+        </div>
+        <div class="info-card">
+            <div class="label">👥 Команда</div>
+            <div class="value">FLOWER DM</div>
+        </div>
+        <div class="info-card">
+            <div class="label">📜 Правила</div>
+            <div class="value">Скоро здесь</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        🌸 <a href="https://discord.gg/wU4eCvpKg" target="_blank">Discord</a> &nbsp;•&nbsp; 
+        📧 <a href="mailto:gofish@fishonline.kz">gofish@fishonline.kz</a>
+    </div>
+</div>
+
+</body>
+</html>
