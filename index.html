@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             min-height: 100vh;
             background-image: url('https://i.pinimg.com/736x/58/ee/45/58ee459284f9e8e1aa0d4008bc5da42e.jpg');
             background-size: cover;
@@ -27,165 +27,125 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 600px;
             width: 100%;
-            padding: 40px 35px;
-            background: rgba(10, 8, 16, 0.45);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 20px;
             text-align: center;
         }
 
-        /* НОВАЯ АВАТАРКА */
+        /* АВАТАРКА */
         .avatar {
-            width: 80px;
-            height: 80px;
+            width: 96px;
+            height: 96px;
             border-radius: 50%;
             background: url('https://i.pinimg.com/1200x/fa/47/b6/fa47b668212826f1ff0514ef211715b8.jpg') center/cover no-repeat;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            margin: 0 auto 20px;
-            animation: avatarPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes avatarPulse {
-            0% { box-shadow: 0 0 5px rgba(179, 136, 224, 0.05); }
-            50% { box-shadow: 0 0 25px rgba(179, 136, 224, 0.15); }
-            100% { box-shadow: 0 0 5px rgba(179, 136, 224, 0.05); }
+            margin: 0 auto 16px;
+            border: 2px solid rgba(255, 255, 255, 0.04);
         }
 
         .name {
-            font-size: 28px;
-            font-weight: 700;
+            font-size: 20px;
+            font-weight: 600;
             color: #ffffff;
-            letter-spacing: -0.5px;
-        }
-
-        .name .accent {
-            color: #b388e0;
+            letter-spacing: -0.3px;
+            margin-bottom: 2px;
         }
 
         .handle {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.12);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-top: 2px;
-        }
-
-        .divider {
-            width: 40px;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.04);
-            margin: 18px auto 18px;
-        }
-
-        .section-title {
             font-size: 14px;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.08);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .about-text {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.10);
-            line-height: 1.7;
-            max-width: 480px;
-            margin: 0 auto 20px;
-            letter-spacing: 0.5px;
-        }
-
-        .about-text .highlight {
             color: rgba(255, 255, 255, 0.2);
+            margin-bottom: 14px;
         }
 
-        .contacts-grid {
+        .bio {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.15);
+            margin-bottom: 22px;
+            line-height: 1.5;
+        }
+
+        .bio .highlight {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* КНОПКИ */
+        .links {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            max-width: 480px;
-            margin: 0 auto 20px;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 460px;
+            margin: 0 auto;
         }
 
-        .contact-btn {
+        .btn {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 18px;
-            border-radius: 40px;
-            font-size: 11px;
-            font-weight: 400;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: all 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            color: rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.01);
-        }
-
-        .contact-btn:hover {
-            transform: translateY(-2px);
-            color: #ffffff;
-            border-color: rgba(255, 255, 255, 0.06);
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .contact-btn .icon {
-            font-size: 14px;
-            opacity: 0.3;
-        }
-
-        .partners-grid {
-            display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 8px;
-            max-width: 480px;
-            margin: 0 auto 4px;
+            gap: 10px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.6);
         }
 
-        .partner-btn {
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            transform: scale(1.01);
+        }
+
+        .btn .icon {
+            font-size: 18px;
+            opacity: 0.4;
+        }
+
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.06);
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.10);
+        }
+
+        .btn-partner {
             display: inline-block;
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 40px;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 400;
             text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s;
+            transition: all 0.2s;
             border: 1px solid rgba(255, 255, 255, 0.02);
-            color: rgba(255, 255, 255, 0.06);
             background: rgba(255, 255, 255, 0.01);
+            color: rgba(255, 255, 255, 0.15);
+            margin-top: 6px;
         }
 
-        .partner-btn:hover {
-            transform: translateY(-2px);
-            color: #ffffff;
-            border-color: rgba(255, 255, 255, 0.04);
+        .btn-partner:hover {
             background: rgba(255, 255, 255, 0.02);
+            border-color: rgba(255, 255, 255, 0.04);
+            color: #ffffff;
         }
 
         .footer {
-            margin-top: 28px;
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.01);
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            margin-top: 30px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.02);
+            letter-spacing: 1px;
         }
 
         @media (max-width: 480px) {
-            .container { padding: 28px 18px; }
-            .name { font-size: 24px; }
-            .about-text { font-size: 13px; }
-            .contact-btn { font-size: 10px; padding: 8px 14px; }
-            .partner-btn { font-size: 10px; padding: 6px 12px; }
+            .avatar { width: 80px; height: 80px; }
+            .btn { font-size: 14px; padding: 12px 16px; }
         }
     </style>
 </head>
@@ -196,38 +156,31 @@
     <div class="avatar"></div>
 
     <!-- ИМЯ -->
-    <div class="name">WW<span class="accent">K</span></div>
+    <div class="name">WWK</div>
     <div class="handle">@your_support_user</div>
 
-    <div class="divider"></div>
-
-    <!-- ОБО МНЕ -->
-    <div class="section-title">// Обо мне</div>
-    <div class="about-text">
+    <!-- БИО -->
+    <div class="bio">
         <span class="highlight">Кто побеждал PRIME SINNERS?</span>
     </div>
 
-    <!-- КОНТАКТЫ -->
-    <div class="section-title">// Контакты</div>
-    <div class="contacts-grid">
-        <a href="https://discord.gg/s2nVtG9nQG" target="_blank" class="contact-btn">
+    <!-- КНОПКИ-ССЫЛКИ -->
+    <div class="links">
+        <a href="https://discord.gg/s2nVtG9nQG" target="_blank" class="btn">
             <span class="icon">◈</span> Discord
         </a>
-        <a href="https://t.me/your_support_user" target="_blank" class="contact-btn">
+        <a href="https://t.me/your_support_user" target="_blank" class="btn">
             <span class="icon">◈</span> Telegram
         </a>
-        <a href="https://www.youtube.com/@lo9d-1" target="_blank" class="contact-btn">
+        <a href="https://www.youtube.com/@lo9d-1" target="_blank" class="btn">
             <span class="icon">◈</span> YouTube
         </a>
-        <a href="https://www.tiktok.com/@slwpppp" target="_blank" class="contact-btn">
+        <a href="https://www.tiktok.com/@slwpppp" target="_blank" class="btn">
             <span class="icon">◈</span> TikTok
         </a>
-    </div>
-
-    <!-- ПАРТНЕРЫ -->
-    <div class="section-title">// Партнеры</div>
-    <div class="partners-grid">
-        <a href="https://discord.gg/FnujCaTXkr" target="_blank" class="partner-btn">disappointed</a>
+        <a href="https://discord.gg/FnujCaTXkr" target="_blank" class="btn btn-primary">
+            <span class="icon">◈</span> Партнер: disappointed
+        </a>
     </div>
 
     <div class="footer">WWK © 2026</div>
