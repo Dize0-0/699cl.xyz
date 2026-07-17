@@ -9,15 +9,8 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         
         body {
             font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -27,7 +20,6 @@
             overflow-x: hidden;
         }
         
-        /* Navigation */
         .navbar {
             position: fixed;
             top: 0;
@@ -63,18 +55,9 @@
             transition: all 0.3s ease;
         }
         
-        .nav-link:hover {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.06);
-        }
+        .nav-link:hover { color: #ffffff; background: rgba(255, 255, 255, 0.06); }
+        .nav-link.active { color: #ffffff; background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.3); }
         
-        .nav-link.active {
-            color: #ffffff;
-            background: rgba(99, 102, 241, 0.15);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-        }
-        
-        /* Mobile menu toggle */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -95,31 +78,20 @@
             transition: all 0.3s ease;
         }
         
-        /* Main content */
-        .main-content {
-            padding-top: 100px;
-        }
+        .main-content { padding-top: 100px; }
+        .container { max-width: 680px; margin: 0 auto; padding: 20px 24px 60px; }
         
-        .container {
-            max-width: 680px;
-            margin: 0 auto;
-            padding: 20px 24px 60px;
-        }
-        
-        /* Section styling */
         .section {
             min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             scroll-margin-top: 100px;
+            padding: 40px 0;
         }
         
         /* Bio Section */
-        .bio-section {
-            text-align: center;
-            padding: 60px 30px;
-        }
+        .bio-section { text-align: center; padding: 60px 30px; }
         
         .avatar-wrapper {
             position: relative;
@@ -144,27 +116,12 @@
             animation: pulse 3s ease-in-out infinite;
         }
         
-        .avatar-ring:nth-child(1) {
-            width: 175px;
-            height: 175px;
-        }
-        
-        .avatar-ring:nth-child(2) {
-            width: 195px;
-            height: 195px;
-            animation-delay: 0.5s;
-            border-color: rgba(168, 85, 247, 0.2);
-        }
+        .avatar-ring:nth-child(1) { width: 175px; height: 175px; }
+        .avatar-ring:nth-child(2) { width: 195px; height: 195px; animation-delay: 0.5s; border-color: rgba(168, 85, 247, 0.2); }
         
         @keyframes pulse {
-            0%, 100% { 
-                transform: translate(-50%, -50%) scale(1); 
-                opacity: 1; 
-            }
-            50% { 
-                transform: translate(-50%, -50%) scale(1.05); 
-                opacity: 0.4; 
-            }
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.4; }
         }
         
         .avatar-image {
@@ -193,30 +150,9 @@
             box-shadow: 0 2px 10px rgba(29, 161, 242, 0.4);
         }
         
-        .verified-badge i {
-            color: white;
-            font-size: 12px;
-        }
-        
-        .profile-name {
-            font-size: 36px;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-        
-        .profile-handle {
-            font-size: 15px;
-            color: #6366f1;
-            margin-bottom: 20px;
-        }
-        
-        .profile-bio {
-            color: #71717a;
-            font-size: 15px;
-            line-height: 1.7;
-            max-width: 400px;
-            margin: 0 auto 30px;
-        }
+        .verified-badge i { color: white; font-size: 12px; }
+        .profile-name { font-size: 36px; font-weight: 800; margin-bottom: 8px; }
+        .profile-bio { color: #71717a; font-size: 15px; line-height: 1.7; max-width: 400px; margin: 0 auto 30px; }
         
         .badges {
             display: flex;
@@ -249,27 +185,19 @@
             animation: bounce 2s ease-in-out infinite;
         }
         
-        .scroll-hint i {
-            font-size: 18px;
-        }
-        
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(8px); }
         }
         
-        /* Contacts Section */
-        .contacts-section {
-            padding: 40px 30px;
-        }
-        
         .section-title {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 700;
             margin-bottom: 24px;
             text-align: center;
         }
         
+        /* Links */
         .links-list {
             display: flex;
             flex-direction: column;
@@ -312,44 +240,21 @@
             flex-shrink: 0;
         }
         
-        .link-text {
-            font-size: 16px;
-            font-weight: 500;
-        }
+        .link-text { font-size: 16px; font-weight: 500; }
+        .link-arrow { color: #52525b; font-size: 14px; transition: all 0.3s ease; }
+        .link-item:hover .link-arrow { color: #ffffff; transform: translateX(3px); }
         
-        .link-arrow {
-            color: #52525b;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        
-        .link-item:hover .link-arrow {
-            color: #ffffff;
-            transform: translateX(3px);
-        }
-        
-        /* Platform colors */
         .discord .link-icon { background: rgba(88, 101, 242, 0.15); color: #5865F2; }
         .discord:hover { border-color: rgba(88, 101, 242, 0.4); }
-        
         .telegram .link-icon { background: rgba(0, 136, 204, 0.15); color: #0088cc; }
         .telegram:hover { border-color: rgba(0, 136, 204, 0.4); }
-        
         .tiktok .link-icon { background: rgba(255, 255, 255, 0.1); color: #ffffff; }
         .tiktok:hover { border-color: rgba(255, 255, 255, 0.25); }
-        
         .youtube .link-icon { background: rgba(255, 0, 0, 0.15); color: #FF0000; }
         .youtube:hover { border-color: rgba(255, 0, 0, 0.4); }
-        
         .partner .link-icon { background: rgba(16, 185, 129, 0.15); color: #10B981; }
         .partner:hover { border-color: rgba(16, 185, 129, 0.4); }
         
-        /* Partners Section */
-        .partners-section {
-            padding: 40px 30px;
-        }
-        
-        /* Footer */
         .footer {
             text-align: center;
             padding: 30px 24px;
@@ -358,7 +263,72 @@
             border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
         
-        /* Responsive */
+        /* VPN Cards */
+        .vpn-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 8px;
+        }
+        
+        .vpn-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 24px 22px;
+            transition: all 0.3s ease;
+        }
+        
+        .vpn-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .vpn-card .price {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        
+        .vpn-card .price span {
+            font-size: 16px;
+            color: #71717a;
+            font-weight: 400;
+        }
+        
+        .vpn-card .features {
+            list-style: none;
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .vpn-card .features li {
+            color: #a1a1aa;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .vpn-card .features li i {
+            color: #6366f1;
+            font-size: 12px;
+        }
+        
+        .vpn-card .badge-location {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+        
         @media (max-width: 768px) {
             .nav-menu {
                 position: fixed;
@@ -381,68 +351,21 @@
                 opacity: 1;
             }
             
-            .nav-link {
-                padding: 12px 20px;
-                display: block;
-            }
-            
-            .menu-toggle {
-                display: flex;
-            }
-            
-            .profile-name {
-                font-size: 28px;
-            }
-            
-            .avatar-container {
-                width: 140px;
-                height: 140px;
-            }
-            
-            .avatar-image {
-                width: 140px;
-                height: 140px;
-            }
-            
-            .avatar-ring:nth-child(1) {
-                width: 155px;
-                height: 155px;
-            }
-            
-            .avatar-ring:nth-child(2) {
-                width: 175px;
-                height: 175px;
-            }
-            
-            .section {
-                min-height: auto;
-                padding: 40px 20px;
-            }
+            .nav-link { padding: 12px 20px; display: block; }
+            .menu-toggle { display: flex; }
+            .profile-name { font-size: 28px; }
+            .avatar-container { width: 140px; height: 140px; }
+            .avatar-image { width: 140px; height: 140px; }
+            .avatar-ring:nth-child(1) { width: 155px; height: 155px; }
+            .avatar-ring:nth-child(2) { width: 175px; height: 175px; }
+            .section { min-height: auto; padding: 40px 20px; }
         }
         
-        /* Selection */
-        ::selection {
-            background: rgba(99, 102, 241, 0.4);
-            color: white;
-        }
-        
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #000000;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: #444;
-        }
+        ::selection { background: rgba(99, 102, 241, 0.4); color: white; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444; }
     </style>
 </head>
 <body>
@@ -457,6 +380,7 @@
             
             <div class="nav-menu" id="navMenu">
                 <a href="#bio" class="nav-link active">Био</a>
+                <a href="#vpn" class="nav-link">VPN</a>
                 <a href="#contacts" class="nav-link">Контакты</a>
                 <a href="#partners" class="nav-link">Партнёры</a>
             </div>
@@ -472,7 +396,7 @@
                     <div class="avatar-ring"></div>
                     <div class="avatar-ring"></div>
                     <div class="avatar-container">
-                        <img src="https://i.pinimg.com/736x/63/67/43/6367437b0923b3f779d1caf79490c818.jpg" alt="SLWPPPP" class="avatar-image">
+                        <img src="https://i.pinimg.com/736x/63/67/43/6367437b0923b3f779d1caf79490c818.jpg" alt="WWK" class="avatar-image">
                     </div>
                     <div class="verified-badge">
                         <i class="fas fa-check"></i>
@@ -483,19 +407,57 @@
                 <p class="profile-bio">MCL/VZP</p>
                 
                 <div class="badges">
-                    <span class="badge">
-                        <i class="fas fa-shield-alt"></i>
-                        MCL
-                    </span>
-                    <span class="badge">
-                        <i class="fas fa-users"></i>
-                        VZP
-                    </span>
+                    <span class="badge"><i class="fas fa-shield-alt"></i> MCL</span>
+                    <span class="badge"><i class="fas fa-users"></i> VZP</span>
                 </div>
                 
                 <div class="scroll-hint">
                     <span>Листай вниз</span>
                     <i class="fas fa-chevron-down"></i>
+                </div>
+            </section>
+            
+            <!-- VPN Section -->
+            <section id="vpn" class="section">
+                <h2 class="section-title">VPN Серверы</h2>
+                
+                <div class="vpn-grid">
+                    <div class="vpn-card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                            <span class="badge-location">🇩🇪 Германия</span>
+                            <span class="badge-location" style="background:rgba(16,185,129,0.15); color:#34d399; border-color:rgba(16,185,129,0.2);">В наличии</span>
+                        </div>
+                        <ul class="features">
+                            <li><i class="fas fa-check"></i> 1 выделенный IP</li>
+                            <li><i class="fas fa-check"></i> Скорость до 100 Мбит/с</li>
+                            <li><i class="fas fa-check"></i> Безлимитный трафик</li>
+                            <li><i class="fas fa-check"></i> Поддержка 24/7</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="vpn-card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                            <span class="badge-location">🇸🇪 Швеция</span>
+                            <span class="badge-location" style="background:rgba(16,185,129,0.15); color:#34d399; border-color:rgba(16,185,129,0.2);">В наличии</span>
+                        </div>
+                        <ul class="features">
+                            <li><i class="fas fa-check"></i> 1 выделенный IP</li>
+                            <li><i class="fas fa-check"></i> Скорость до 100 Мбит/с</li>
+                            <li><i class="fas fa-check"></i> Безлимитный трафик</li>
+                            <li><i class="fas fa-check"></i> Поддержка 24/7</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="margin-top:24px; text-align:center; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:14px; padding:20px;">
+                    <div class="price" style="font-size:32px;">75 ₽ <span style="font-size:16px; color:#71717a;">/ месяц</span></div>
+                    <p style="color:#a1a1aa; font-size:14px; margin-top:4px;">Доступ к обоим серверам</p>
+                    <div style="margin-top:12px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap; font-size:14px; color:#71717a;">
+                        <span>💳 Оплата: <span style="color:#ffffff;">Криптовалюта</span></span>
+                        <span>·</span>
+                        <span>🛒 <span style="color:#ffffff;">FunPay</span></span>
+                    </div>
+                    <p style="font-size:13px; margin-top:8px; color:#52525b;">Для заказа пишите в <a href="https://t.me/your_support_user" style="color:#6366f1; text-decoration:none;">Telegram</a></p>
                 </div>
             </section>
             
@@ -506,9 +468,7 @@
                 <div class="links-list">
                     <a href="https://discord.gg/s2nVtG9nQG" target="_blank" rel="noopener noreferrer" class="link-item discord">
                         <div class="link-left">
-                            <div class="link-icon">
-                                <i class="fab fa-discord"></i>
-                            </div>
+                            <div class="link-icon"><i class="fab fa-discord"></i></div>
                             <span class="link-text">Discord сервер</span>
                         </div>
                         <i class="fas fa-arrow-right link-arrow"></i>
@@ -516,9 +476,7 @@
                     
                     <a href="https://t.me/your_support_user" target="_blank" rel="noopener noreferrer" class="link-item telegram">
                         <div class="link-left">
-                            <div class="link-icon">
-                                <i class="fab fa-telegram"></i>
-                            </div>
+                            <div class="link-icon"><i class="fab fa-telegram"></i></div>
                             <span class="link-text">Telegram поддержка</span>
                         </div>
                         <i class="fas fa-arrow-right link-arrow"></i>
@@ -526,9 +484,7 @@
                     
                     <a href="https://www.tiktok.com/@slwpppp" target="_blank" rel="noopener noreferrer" class="link-item tiktok">
                         <div class="link-left">
-                            <div class="link-icon">
-                                <i class="fab fa-tiktok"></i>
-                            </div>
+                            <div class="link-icon"><i class="fab fa-tiktok"></i></div>
                             <span class="link-text">TikTok</span>
                         </div>
                         <i class="fas fa-arrow-right link-arrow"></i>
@@ -536,9 +492,7 @@
                     
                     <a href="https://www.youtube.com/@lo9d-1" target="_blank" rel="noopener noreferrer" class="link-item youtube">
                         <div class="link-left">
-                            <div class="link-icon">
-                                <i class="fab fa-youtube"></i>
-                            </div>
+                            <div class="link-icon"><i class="fab fa-youtube"></i></div>
                             <span class="link-text">YouTube</span>
                         </div>
                         <i class="fas fa-arrow-right link-arrow"></i>
@@ -552,9 +506,7 @@
                 
                 <a href="https://discord.gg/FnujCaTXkr" target="_blank" rel="noopener noreferrer" class="link-item partner">
                     <div class="link-left">
-                        <div class="link-icon">
-                            <i class="fas fa-handshake"></i>
-                        </div>
+                        <div class="link-icon"><i class="fas fa-handshake"></i></div>
                         <span class="link-text">Partner Discord</span>
                     </div>
                     <i class="fas fa-arrow-right link-arrow"></i>
@@ -563,26 +515,21 @@
         </div>
     </main>
     
-    <!-- Footer -->
     <footer class="footer">
-        <p>© 2025 WWK</p>
+        <p>© 2026 WWK</p>
     </footer>
     
     <script>
-        // Mobile menu toggle
         function toggleMenu() {
-            const menu = document.getElementById('navMenu');
-            menu.classList.toggle('active');
+            document.getElementById('navMenu').classList.toggle('active');
         }
         
-        // Close menu on link click
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 document.getElementById('navMenu').classList.remove('active');
             });
         });
         
-        // Active link on scroll
         const sections = document.querySelectorAll('.section');
         const navLinks = document.querySelectorAll('.nav-link');
         
@@ -593,7 +540,6 @@
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionBottom = sectionTop + section.offsetHeight;
-                
                 if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
                     current = section.getAttribute('id');
                 }
