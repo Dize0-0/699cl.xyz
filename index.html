@@ -379,7 +379,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 0;
             overflow: hidden;
         }
 
@@ -431,8 +431,7 @@
             overflow: hidden;
         }
 
-        .bg-video-container iframe,
-        .bg-video-container video {
+        .bg-video-container iframe {
             position: absolute;
             top: 50%; left: 50%;
             width: 100vw; height: 100vh;
@@ -446,7 +445,7 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.45);
+            background: rgba(0, 0, 0, 0.35);
             z-index: 2;
         }
 
@@ -474,21 +473,18 @@
             transform: scale(1.05);
         }
 
+        /* Видео на весь экран */
         .iframe-wrapper {
             position: relative;
             z-index: 10;
-            width: 100%;
-            max-width: 1050px;
-            aspect-ratio: 16 / 9;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.9);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: #000000;
+            width: 100vw;
+            height: 100vh;
+            background: transparent;
         }
 
         .iframe-wrapper iframe {
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             border: none;
         }
         
@@ -759,8 +755,9 @@
             });
         });
 
-        // Функция парсинга ссылки
+        // Функция парсинга ID видео из ссылок
         function parseYoutubeId(url) {
+            if (!url) return null;
             if (url.includes('v=')) return url.split('v=')[1].split('&')[0];
             if (url.includes('youtu.be/')) return url.split('youtu.be/')[1].split('?')[0];
             if (url.includes('embed/')) return url.split('embed/')[1].split('?')[0];
@@ -789,7 +786,7 @@
             }
         }
 
-        // Переключение фона (гарантированная работа через YouTube Embed без звука)
+        // Переключение фона
         function changeBackground() {
             const bgType = document.getElementById('bgSelect').value;
             const bgContainer = document.getElementById('bgContainer');
@@ -799,11 +796,11 @@
             let bgVideoId = '';
 
             if (bgType === 'fireplace') {
-                bgVideoId = 'L_LUpnjgPso'; // Живой камин
+                bgVideoId = 'mmBEZ3x-QRo'; // Камин
             } else if (bgType === 'rain') {
-                bgVideoId = 'mPZkdNFkNps'; // Дождь за окном
+                bgVideoId = 'Zhq_ThHG2gA'; // Дождь
             } else if (bgType === 'space') {
-                bgVideoId = '1ZYbU82GVz4'; // Космос
+                bgVideoId = 'KsqK85PfIQY'; // Космос
             } else if (bgType === 'custom') {
                 const customUrl = prompt('Вставьте ссылку на YouTube видео для фона:');
                 if (customUrl) {
@@ -812,7 +809,7 @@
             }
 
             if (bgVideoId) {
-                bgContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${bgVideoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${bgVideoId}&showinfo=0" allow="autoplay"></iframe>`;
+                bgContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${bgVideoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${bgVideoId}" allow="autoplay"></iframe>`;
             }
         }
 
