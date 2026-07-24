@@ -25,9 +25,7 @@
         /* Навигация */
         .navbar {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 1000;
             padding: 18px 24px;
             background: rgba(0, 0, 0, 0.9);
@@ -74,8 +72,7 @@
         }
         
         .menu-toggle span {
-            width: 24px;
-            height: 2px;
+            width: 24px; height: 2px;
             background: #ffffff;
             border-radius: 2px;
             transition: all 0.3s ease;
@@ -116,6 +113,7 @@
             transform: translate(-50%, -50%);
             border-radius: 50%;
             border: 1px solid rgba(255, 255, 255, 0.15);
+            pointer-events: none;
         }
         
         .avatar-ring:nth-child(1) { width: 165px; height: 165px; }
@@ -131,10 +129,11 @@
             border: 2px solid rgba(255, 255, 255, 0.2);
         }
         
+        /* Исправленная галочка */
         .verified-badge {
             position: absolute;
-            bottom: 5px;
-            right: 5px;
+            bottom: 4px;
+            right: 4px;
             width: 28px;
             height: 28px;
             background: #ffffff;
@@ -142,7 +141,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 3;
+            z-index: 10;
             border: 2px solid #000000;
         }
         
@@ -253,88 +252,10 @@
             gap: 12px;
         }
         
-        .spec-item i {
-            color: #ffffff;
-            font-size: 14px;
-            width: 18px;
-            text-align: center;
-        }
-
+        .spec-item i { color: #ffffff; font-size: 14px; width: 18px; text-align: center; }
         .spec-item strong { color: #ffffff; }
 
-        /* Раздел Медиа / YouTube Плеер */
-        .media-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 20px;
-        }
-
-        .input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-
-        .yt-input {
-            flex: 1;
-            background: #000000;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 10px;
-            padding: 12px 16px;
-            color: #ffffff;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-
-        .yt-input:focus {
-            border-color: #ffffff;
-        }
-
-        .yt-btn {
-            background: #ffffff;
-            color: #000000;
-            border: none;
-            border-radius: 10px;
-            padding: 0 20px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .yt-btn:hover {
-            background: #e4e4e7;
-        }
-
-        .player-container {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
-            background: #000000;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            display: none;
-        }
-
-        .player-container iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border: none;
-        }
-
-        .player-placeholder {
-            text-align: center;
-            padding: 40px 20px;
-            color: #71717a;
-            font-size: 14px;
-            border: 1px dashed rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-        }
-
-        /* Ссылки и Контакты */
+        /* Ссылки */
         .links-list {
             display: flex;
             flex-direction: column;
@@ -363,8 +284,7 @@
         .link-left { display: flex; align-items: center; gap: 16px; }
         
         .link-icon {
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -377,6 +297,139 @@
         .link-text { font-size: 15px; font-weight: 600; }
         .link-arrow { color: #52525b; font-size: 14px; }
         .link-item:hover .link-arrow { color: #ffffff; }
+
+        /* Раздел Медиа в самом конце */
+        .media-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .instruction-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .instruction-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #e4e4e7;
+        }
+
+        .instruction-steps {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 13px;
+            color: #a1a1aa;
+        }
+
+        .instruction-steps li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .instruction-steps i { color: #71717a; font-size: 10px; }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .yt-input {
+            flex: 1;
+            background: #000000;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .yt-input:focus { border-color: #ffffff; }
+
+        .yt-btn {
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            border-radius: 10px;
+            padding: 0 24px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .yt-btn:hover { background: #e4e4e7; }
+
+        /* Полноэкранный Плеер (Fullscreen Modal) */
+        .fullscreen-player {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(25px);
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .fullscreen-player.active { display: flex; }
+
+        .close-player-btn {
+            position: absolute;
+            top: 24px; right: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-size: 18px;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .close-player-btn:hover {
+            background: #ffffff;
+            color: #000000;
+            transform: scale(1.05);
+        }
+
+        .iframe-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            aspect-ratio: 16 / 9;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .iframe-wrapper iframe {
+            width: 100%; height: 100%;
+            border: none;
+        }
         
         .footer {
             text-align: center;
@@ -405,7 +458,7 @@
             .nav-link { padding: 12px 20px; display: block; text-align: center; }
             .menu-toggle { display: flex; }
             .input-group { flex-direction: column; }
-            .yt-btn { padding: 12px; }
+            .yt-btn { padding: 12px; justify-content: center; }
             .section { min-height: auto; padding: 30px 0; }
         }
     </style>
@@ -424,9 +477,9 @@
             <div class="nav-menu" id="navMenu">
                 <a href="#bio" class="nav-link active">Био</a>
                 <a href="#setup" class="nav-link">Сетап</a>
-                <a href="#media" class="nav-link">Медиа</a>
                 <a href="#contacts" class="nav-link">Контакты</a>
                 <a href="#partners" class="nav-link">Партнёры</a>
+                <a href="#media" class="nav-link">Медиа</a>
             </div>
         </div>
     </nav>
@@ -442,9 +495,9 @@
                     <div class="avatar-ring"></div>
                     <div class="avatar-container">
                         <img src="https://i.pinimg.com/736x/63/67/43/6367437b0923b3f779d1caf79490c818.jpg" alt="WWK Avatar" class="avatar-image">
-                    </div>
-                    <div class="verified-badge">
-                        <i class="fas fa-check"></i>
+                        <div class="verified-badge">
+                            <i class="fas fa-check"></i>
+                        </div>
                     </div>
                 </div>
                 
@@ -462,12 +515,11 @@
                 </div>
             </section>
             
-            <!-- Секция Сетап (Железо и Девайсы) -->
+            <!-- Секция Сетап -->
             <section id="setup" class="section">
                 <h2 class="section-title">Мой Сетап</h2>
                 
                 <div class="cards-grid">
-                    <!-- Блок ПК -->
                     <div class="card">
                         <div class="card-header">
                             <span class="card-title"><i class="fas fa-desktop"></i> Компьютер</span>
@@ -481,38 +533,16 @@
                         </ul>
                     </div>
                     
-                    <!-- Блок Девайсы -->
                     <div class="card">
                         <div class="card-header">
                             <span class="card-title"><i class="fas fa-keyboard"></i> Периферия</span>
                             <span class="card-badge">Gear</span>
                         </div>
                         <ul class="spec-list">
-                            <li class="spec-item"><i class="fas fa-keyboard"></i> <span><strong>Клавиатура:</strong> Attack Shark H86</span></li>
+                            <li class="spec-item"><i class="fas fa-keyboard"></i> <span><strong>Клавиатура:</strong> Attack Shark K86</span></li>
                             <li class="spec-item"><i class="fas fa-mouse"></i> <span><strong>Мышь:</strong> Attack Shark R1</span></li>
                             <li class="spec-item"><i class="fas fa-wifi"></i> <span><strong>Сеть:</strong> Ethernet 500+ Мбит/с</span></li>
                         </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Вкладка Медиа (YouTube Player) -->
-            <section id="media" class="section">
-                <h2 class="section-title">Медиа Плеер</h2>
-                
-                <div class="media-box">
-                    <div class="input-group">
-                        <input type="text" id="ytUrl" class="yt-input" placeholder="Вставь ссылку на YouTube видео...">
-                        <button onclick="loadVideo()" class="yt-btn">Смотреть</button>
-                    </div>
-
-                    <div id="playerBox" class="player-container">
-                        <iframe id="ytIframe" src="" allowfullscreen allow="autoplay"></iframe>
-                    </div>
-
-                    <div id="playerPlaceholder" class="player-placeholder">
-                        <i class="fab fa-youtube" style="font-size: 32px; margin-bottom: 8px; color: #52525b;"></i>
-                        <p>Вставь ссылку сверху, чтобы открыть видео</p>
                     </div>
                 </div>
             </section>
@@ -569,8 +599,45 @@
                 </a>
             </section>
 
+            <!-- Вкладка Медиа (В САМОМ КОНЦЕ) -->
+            <section id="media" class="section">
+                <h2 class="section-title">Медиа Плеер</h2>
+                
+                <div class="media-card">
+                    <!-- Инструкция -->
+                    <div class="instruction-box">
+                        <div class="instruction-title">
+                            <i class="fas fa-circle-info"></i> Как посмотреть видео:
+                        </div>
+                        <ul class="instruction-steps">
+                            <li><i class="fas fa-circle"></i> Скопируй ссылку на любое видео с YouTube.</li>
+                            <li><i class="fas fa-circle"></i> Вставь ссылку в текстовое поле ниже.</li>
+                            <li><i class="fas fa-circle"></i> Нажми кнопку «Смотреть», чтобы открыть видео на весь экран.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Ввод ссылки -->
+                    <div class="input-group">
+                        <input type="text" id="ytUrl" class="yt-input" placeholder="https://www.youtube.com/watch?v=...">
+                        <button onclick="openFullscreenPlayer()" class="yt-btn">
+                            <i class="fas fa-play"></i> Смотреть
+                        </button>
+                    </div>
+                </div>
+            </section>
+
         </div>
     </main>
+    
+    <!-- Полноэкранный плеер (Модалка) -->
+    <div id="fullscreenPlayer" class="fullscreen-player">
+        <button class="close-player-btn" onclick="closeFullscreenPlayer()" title="Закрыть">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="iframe-wrapper">
+            <iframe id="ytIframe" src="" allowfullscreen allow="autoplay"></iframe>
+        </div>
+    </div>
     
     <footer class="footer">
         <p>© 2026 WWK</p>
@@ -588,13 +655,13 @@
             });
         });
         
-        // Подсвечивание текущей вкладки при скролле
+        // Подсвечивание активной вкладки
         const sections = document.querySelectorAll('.section');
         const navLinks = document.querySelectorAll('.nav-link');
         
         window.addEventListener('scroll', () => {
             let current = '';
-            const scrollPosition = window.scrollY + 200;
+            const scrollPosition = window.scrollY + 250;
             
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
@@ -612,18 +679,19 @@
             });
         });
 
-        // Функция парсинга и загрузки YouTube видео
-        function loadVideo() {
+        // Открытие полноэкранного плеера
+        function openFullscreenPlayer() {
             const urlInput = document.getElementById('ytUrl').value.trim();
-            const playerBox = document.getElementById('playerBox');
-            const playerPlaceholder = document.getElementById('playerPlaceholder');
+            const playerModal = document.getElementById('fullscreenPlayer');
             const ytIframe = document.getElementById('ytIframe');
 
-            if (!urlInput) return;
+            if (!urlInput) {
+                alert('Сначала вставь ссылку на YouTube видео!');
+                return;
+            }
 
             let videoId = '';
 
-            // Разбор разных форматов ссылок YouTube
             if (urlInput.includes('v=')) {
                 videoId = urlInput.split('v=')[1].split('&')[0];
             } else if (urlInput.includes('youtu.be/')) {
@@ -634,12 +702,29 @@
 
             if (videoId) {
                 ytIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-                playerPlaceholder.style.display = 'none';
-                playerBox.style.display = 'block';
+                playerModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
             } else {
-                alert('Пожалуйста, введи корректную ссылку на YouTube (например: https://www.youtube.com/watch?v=dQw4w9WgXcQ)');
+                alert('Некорректная ссылка на YouTube!');
             }
         }
+
+        // Закрытие полноэкранного плеера
+        function closeFullscreenPlayer() {
+            const playerModal = document.getElementById('fullscreenPlayer');
+            const ytIframe = document.getElementById('ytIframe');
+            
+            playerModal.classList.remove('active');
+            ytIframe.src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Закрытие по клавише ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeFullscreenPlayer();
+            }
+        });
     </script>
 </body>
 </html>
