@@ -368,7 +368,7 @@
 
         .yt-btn:hover { background: #e4e4e7; }
 
-        /* Полноэкранный Плеер с атмосферным фоном */
+        /* Полноэкранный Плеер */
         .fullscreen-player {
             position: fixed;
             top: 0; left: 0;
@@ -385,15 +385,15 @@
 
         .fullscreen-player.active { display: flex; }
 
-        /* Элементы управления фона */
+        /* Управление фоном */
         .bg-controls {
             position: absolute;
             top: 20px; left: 20px;
             z-index: 10001;
             display: flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(0, 0, 0, 0.7);
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(15px);
             padding: 8px 14px;
             border-radius: 12px;
@@ -421,28 +421,32 @@
             cursor: pointer;
         }
 
-        /* Фоновые видео/анимации */
+        /* Контейнер для заднего фона */
         .bg-video-container {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: 1;
             pointer-events: none;
-            opacity: 0.55;
             overflow: hidden;
         }
 
-        .bg-video-container video, .bg-video-container iframe {
-            width: 100%; height: 100%;
+        .bg-video-container iframe,
+        .bg-video-container video {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 100vw; height: 100vh;
+            transform: translate(-50%, -50%);
             object-fit: cover;
             border: none;
+            opacity: 0.6;
         }
 
         .bg-overlay {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.45);
             z-index: 2;
         }
 
@@ -450,7 +454,7 @@
             position: absolute;
             top: 20px; right: 20px;
             z-index: 10001;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #ffffff;
@@ -665,12 +669,12 @@
                 <div class="media-card">
                     <div class="instruction-box">
                         <div class="instruction-title">
-                            <i class="fas fa-circle-info"></i> Как посмотреть видео:
+                            <i class="fas fa-circle-info"></i> Инструкция по просмотру:
                         </div>
                         <ul class="instruction-steps">
-                            <li><i class="fas fa-circle"></i> Скопируй ссылку на любое видео с YouTube.</li>
-                            <li><i class="fas fa-circle"></i> Вставь ссылку в поле ниже.</li>
-                            <li><i class="fas fa-circle"></i> Нажми «Смотреть» и выбирай атмосферный фон (камин, дождь) в самом плеере!</li>
+                            <li><i class="fas fa-circle"></i> Вставьте ссылку на любое видео с YouTube.</li>
+                            <li><i class="fas fa-circle"></i> Нажмите кнопку «Смотреть».</li>
+                            <li><i class="fas fa-circle"></i> Выбирайте любой атмосферный фон прямо в плеере или подставляйте своё видео на задний план.</li>
                         </ul>
                     </div>
 
@@ -686,18 +690,18 @@
         </div>
     </main>
     
-    <!-- Полноэкранный плеер с настройкой фона -->
+    <!-- Полноэкранный плеер -->
     <div id="fullscreenPlayer" class="fullscreen-player">
         
-        <!-- Выбор фона -->
+        <!-- Управление фоном -->
         <div class="bg-controls">
             <span class="bg-label"><i class="fas fa-sliders"></i> Фон:</span>
             <select id="bgSelect" class="bg-select" onchange="changeBackground()">
-                <option value="none">⬛ Тёмный</option>
-                <option value="fireplace">🔥 Камин</option>
-                <option value="rain">🌧️ Дождь</option>
-                <option value="space">🌌 Космос</option>
-                <option value="custom">🔗 Своя ссылка / GIF</option>
+                <option value="none">Тёмный</option>
+                <option value="fireplace">Камин</option>
+                <option value="rain">Дождь</option>
+                <option value="space">Космос</option>
+                <option value="custom">Свой YouTube фон</option>
             </select>
         </div>
 
@@ -705,11 +709,11 @@
             <i class="fas fa-times"></i>
         </button>
 
-        <!-- Контейнер для фона -->
+        <!-- Задний фон -->
         <div class="bg-video-container" id="bgContainer"></div>
         <div class="bg-overlay"></div>
 
-        <!-- Видео -->
+        <!-- Основной видеоплеер -->
         <div class="iframe-wrapper">
             <iframe id="ytIframe" src="" allowfullscreen allow="autoplay"></iframe>
         </div>
@@ -755,6 +759,14 @@
             });
         });
 
+        // Функция парсинга ссылки
+        function parseYoutubeId(url) {
+            if (url.includes('v=')) return url.split('v=')[1].split('&')[0];
+            if (url.includes('youtu.be/')) return url.split('youtu.be/')[1].split('?')[0];
+            if (url.includes('embed/')) return url.split('embed/')[1].split('?')[0];
+            return null;
+        }
+
         // Открытие плеера
         function openFullscreenPlayer() {
             const urlInput = document.getElementById('ytUrl').value.trim();
@@ -762,19 +774,11 @@
             const ytIframe = document.getElementById('ytIframe');
 
             if (!urlInput) {
-                alert('Сначала вставь ссылку на YouTube видео!');
+                alert('Сначала вставьте ссылку на YouTube видео!');
                 return;
             }
 
-            let videoId = '';
-
-            if (urlInput.includes('v=')) {
-                videoId = urlInput.split('v=')[1].split('&')[0];
-            } else if (urlInput.includes('youtu.be/')) {
-                videoId = urlInput.split('youtu.be/')[1].split('?')[0];
-            } else if (urlInput.includes('embed/')) {
-                videoId = urlInput.split('embed/')[1].split('?')[0];
-            }
+            const videoId = parseYoutubeId(urlInput);
 
             if (videoId) {
                 ytIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
@@ -785,28 +789,30 @@
             }
         }
 
-        // Переключение фона
+        // Переключение фона (гарантированная работа через YouTube Embed без звука)
         function changeBackground() {
             const bgType = document.getElementById('bgSelect').value;
             const bgContainer = document.getElementById('bgContainer');
             
             bgContainer.innerHTML = '';
 
+            let bgVideoId = '';
+
             if (bgType === 'fireplace') {
-                bgContainer.innerHTML = `<video autoplay loop muted playsinline><source src="https://assets.mixkit.co/videos/preview/mixkit-fire-in-a-fireplace-42898-large.mp4" type="video/mp4"></video>`;
+                bgVideoId = 'L_LUpnjgPso'; // Живой камин
             } else if (bgType === 'rain') {
-                bgContainer.innerHTML = `<video autoplay loop muted playsinline><source src="https://assets.mixkit.co/videos/preview/mixkit-rain-drops-on-a-window-pane-13858-large.mp4" type="video/mp4"></video>`;
+                bgVideoId = 'mPZkdNFkNps'; // Дождь за окном
             } else if (bgType === 'space') {
-                bgContainer.innerHTML = `<video autoplay loop muted playsinline><source src="https://assets.mixkit.co/videos/preview/mixkit-flying-through-a-star-field-in-space-41529-large.mp4" type="video/mp4"></video>`;
+                bgVideoId = '1ZYbU82GVz4'; // Космос
             } else if (bgType === 'custom') {
-                const customUrl = prompt('Вставь прямую ссылку на видео (.mp4) или гифку (.gif):');
+                const customUrl = prompt('Вставьте ссылку на YouTube видео для фона:');
                 if (customUrl) {
-                    if (customUrl.endsWith('.mp4')) {
-                        bgContainer.innerHTML = `<video autoplay loop muted playsinline><source src="${customUrl}" type="video/mp4"></video>`;
-                    } else {
-                        bgContainer.innerHTML = `<img src="${customUrl}" style="width:100%; height:100%; object-fit:cover;">`;
-                    }
+                    bgVideoId = parseYoutubeId(customUrl);
                 }
+            }
+
+            if (bgVideoId) {
+                bgContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${bgVideoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${bgVideoId}&showinfo=0" allow="autoplay"></iframe>`;
             }
         }
 
