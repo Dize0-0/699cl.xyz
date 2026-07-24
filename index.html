@@ -129,7 +129,6 @@
             border: 2px solid rgba(255, 255, 255, 0.2);
         }
         
-        /* Исправленная галочка */
         .verified-badge {
             position: absolute;
             bottom: 4px;
@@ -298,7 +297,7 @@
         .link-arrow { color: #52525b; font-size: 14px; }
         .link-item:hover .link-arrow { color: #ffffff; }
 
-        /* Раздел Медиа в самом конце */
+        /* Раздел Медиа */
         .media-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -333,18 +332,10 @@
             color: #a1a1aa;
         }
 
-        .instruction-steps li {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
+        .instruction-steps li { display: flex; align-items: center; gap: 8px; }
         .instruction-steps i { color: #71717a; font-size: 10px; }
 
-        .input-group {
-            display: flex;
-            gap: 10px;
-        }
+        .input-group { display: flex; gap: 10px; }
 
         .yt-input {
             flex: 1;
@@ -377,27 +368,90 @@
 
         .yt-btn:hover { background: #e4e4e7; }
 
-        /* Полноэкранный Плеер (Fullscreen Modal) */
+        /* Полноэкранный Плеер с атмосферным фоном */
         .fullscreen-player {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(25px);
+            background: #000000;
             z-index: 9999;
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            overflow: hidden;
         }
 
         .fullscreen-player.active { display: flex; }
 
+        /* Элементы управления фона */
+        .bg-controls {
+            position: absolute;
+            top: 20px; left: 20px;
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            padding: 8px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .bg-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #a1a1aa;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .bg-select {
+            background: #18181b;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Фоновые видео/анимации */
+        .bg-video-container {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.55;
+            overflow: hidden;
+        }
+
+        .bg-video-container video, .bg-video-container iframe {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border: none;
+        }
+
+        .bg-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 2;
+        }
+
         .close-player-btn {
             position: absolute;
-            top: 24px; right: 24px;
-            background: rgba(255, 255, 255, 0.1);
+            top: 20px; right: 20px;
+            z-index: 10001;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #ffffff;
             font-size: 18px;
@@ -417,13 +471,16 @@
         }
 
         .iframe-wrapper {
+            position: relative;
+            z-index: 10;
             width: 100%;
-            max-width: 1100px;
+            max-width: 1050px;
             aspect-ratio: 16 / 9;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: #000000;
         }
 
         .iframe-wrapper iframe {
@@ -460,6 +517,8 @@
             .input-group { flex-direction: column; }
             .yt-btn { padding: 12px; justify-content: center; }
             .section { min-height: auto; padding: 30px 0; }
+            .bg-controls { top: 15px; left: 15px; padding: 6px 10px; }
+            .close-player-btn { top: 15px; right: 15px; width: 38px; height: 38px; }
         }
     </style>
 </head>
@@ -599,24 +658,22 @@
                 </a>
             </section>
 
-            <!-- Вкладка Медиа (В САМОМ КОНЦЕ) -->
+            <!-- Вкладка Медиа -->
             <section id="media" class="section">
                 <h2 class="section-title">Медиа Плеер</h2>
                 
                 <div class="media-card">
-                    <!-- Инструкция -->
                     <div class="instruction-box">
                         <div class="instruction-title">
                             <i class="fas fa-circle-info"></i> Как посмотреть видео:
                         </div>
                         <ul class="instruction-steps">
                             <li><i class="fas fa-circle"></i> Скопируй ссылку на любое видео с YouTube.</li>
-                            <li><i class="fas fa-circle"></i> Вставь ссылку в текстовое поле ниже.</li>
-                            <li><i class="fas fa-circle"></i> Нажми кнопку «Смотреть», чтобы открыть видео на весь экран.</li>
+                            <li><i class="fas fa-circle"></i> Вставь ссылку в поле ниже.</li>
+                            <li><i class="fas fa-circle"></i> Нажми «Смотреть» и выбирай атмосферный фон (камин, дождь) в самом плеере!</li>
                         </ul>
                     </div>
 
-                    <!-- Ввод ссылки -->
                     <div class="input-group">
                         <input type="text" id="ytUrl" class="yt-input" placeholder="https://www.youtube.com/watch?v=...">
                         <button onclick="openFullscreenPlayer()" class="yt-btn">
@@ -629,11 +686,30 @@
         </div>
     </main>
     
-    <!-- Полноэкранный плеер (Модалка) -->
+    <!-- Полноэкранный плеер с настройкой фона -->
     <div id="fullscreenPlayer" class="fullscreen-player">
+        
+        <!-- Выбор фона -->
+        <div class="bg-controls">
+            <span class="bg-label"><i class="fas fa-sliders"></i> Фон:</span>
+            <select id="bgSelect" class="bg-select" onchange="changeBackground()">
+                <option value="none">⬛ Тёмный</option>
+                <option value="fireplace">🔥 Камин</option>
+                <option value="rain">🌧️ Дождь</option>
+                <option value="space">🌌 Космос</option>
+                <option value="custom">🔗 Своя ссылка / GIF</option>
+            </select>
+        </div>
+
         <button class="close-player-btn" onclick="closeFullscreenPlayer()" title="Закрыть">
             <i class="fas fa-times"></i>
         </button>
+
+        <!-- Контейнер для фона -->
+        <div class="bg-video-container" id="bgContainer"></div>
+        <div class="bg-overlay"></div>
+
+        <!-- Видео -->
         <div class="iframe-wrapper">
             <iframe id="ytIframe" src="" allowfullscreen allow="autoplay"></iframe>
         </div>
@@ -679,7 +755,7 @@
             });
         });
 
-        // Открытие полноэкранного плеера
+        // Открытие плеера
         function openFullscreenPlayer() {
             const urlInput = document.getElementById('ytUrl').value.trim();
             const playerModal = document.getElementById('fullscreenPlayer');
@@ -709,21 +785,46 @@
             }
         }
 
-        // Закрытие полноэкранного плеера
+        // Переключение фона
+        function changeBackground() {
+            const bgType = document.getElementById('bgSelect').value;
+            const bgContainer = document.getElementById('bgContainer');
+            
+            bgContainer.innerHTML = '';
+
+            if (bgType === 'fireplace') {
+                bgContainer.innerHTML = `<video autoplay loop muted playsinline><source src="https://assets.mixkit.co/videos/preview/mixkit-fire-in-a-fireplace-42898-large.mp4" type="video/mp4"></video>`;
+            } else if (bgType === 'rain') {
+                bgContainer.innerHTML = `<video autoplay loop muted playsinline><source src="https://assets.mixkit.co/videos/preview/mixkit-rain-drops-on-a-window-pane-13858-large.mp4" type="video/mp4"></video>`;
+            } else if (bgType === 'space') {
+                bgContainer.innerHTML = `<video autoplay loop muted playsinline><source src="https://assets.mixkit.co/videos/preview/mixkit-flying-through-a-star-field-in-space-41529-large.mp4" type="video/mp4"></video>`;
+            } else if (bgType === 'custom') {
+                const customUrl = prompt('Вставь прямую ссылку на видео (.mp4) или гифку (.gif):');
+                if (customUrl) {
+                    if (customUrl.endsWith('.mp4')) {
+                        bgContainer.innerHTML = `<video autoplay loop muted playsinline><source src="${customUrl}" type="video/mp4"></video>`;
+                    } else {
+                        bgContainer.innerHTML = `<img src="${customUrl}" style="width:100%; height:100%; object-fit:cover;">`;
+                    }
+                }
+            }
+        }
+
+        // Закрытие плеера
         function closeFullscreenPlayer() {
             const playerModal = document.getElementById('fullscreenPlayer');
             const ytIframe = document.getElementById('ytIframe');
             
             playerModal.classList.remove('active');
             ytIframe.src = '';
+            document.getElementById('bgContainer').innerHTML = '';
+            document.getElementById('bgSelect').value = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        // Закрытие по клавише ESC
+        // ESC для закрытия
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeFullscreenPlayer();
-            }
+            if (e.key === 'Escape') closeFullscreenPlayer();
         });
     </script>
 </body>
