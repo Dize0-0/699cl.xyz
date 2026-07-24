@@ -755,6 +755,11 @@
     
     <!-- Скрипты -->
     <script>
+        // Автоматическая очистка лишних параметров в URL при загрузке страницы
+        if (window.location.search || window.location.hash) {
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
         function toggleMenu() {
             document.getElementById('navMenu').classList.toggle('active');
         }
