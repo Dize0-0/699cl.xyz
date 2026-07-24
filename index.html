@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+# Let's generate the updated HTML file incorporating Supabase real-time sync for the shared player.
+# We will write a python script to output the code cleanly.
+
+html_content = """<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +10,9 @@
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
@@ -298,7 +304,7 @@
         
         .spec-item strong { color: #ffffff; font-weight: 600; }
 
-        /* ВСТРОЕННЫЙ БЛОК МЕДИА ПЛЕЕРА */
+        /* МЕДИА ПЛЕЕР */
         .player-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.06);
@@ -404,7 +410,7 @@
         .link-arrow { color: #52525b; font-size: 14px; transition: all 0.2s ease; }
         .link-item:hover .link-arrow { color: #ffffff; transform: translateX(2px); }
 
-        /* --- ПОЛНОЭКРАННЫЙ ПЛЕЕР (Fullscreen Player) --- */
+        /* ПОЛНОЭКРАННЫЙ ПЛЕЕР С СИНХРОНИЗАЦИЕЙ */
         .fullscreen-player {
             position: fixed;
             top: 0; left: 0;
@@ -421,7 +427,6 @@
 
         .fullscreen-player.active { display: flex; }
 
-        /* Управление фоном */
         .bg-controls {
             position: absolute;
             top: 20px; left: 20px;
@@ -457,7 +462,36 @@
             cursor: pointer;
         }
 
-        /* Задний фон на весь экран */
+        /* Индикатор совместного просмотра */
+        .sync-status {
+            position: absolute;
+            top: 20px; left: 50%;
+            transform: translateX(-50%);
+            z-index: 10001;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34d399;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(15px);
+        }
+        .sync-dot {
+            width: 8px; height: 8px;
+            background: #34d399;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 10px #34d399; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
         .bg-video-container {
             position: absolute;
             top: 0; left: 0;
@@ -509,7 +543,6 @@
             transform: scale(1.05);
         }
 
-        /* Видеоплеер по центру */
         .iframe-wrapper {
             position: relative;
             z-index: 10;
@@ -560,6 +593,7 @@
             .section { min-height: auto; padding: 30px 0; }
             .player-input-group { flex-direction: column; }
             .bg-controls { top: 15px; left: 15px; padding: 6px 10px; }
+            .sync-status { display: none; }
             .close-player-btn { top: 15px; right: 15px; width: 38px; height: 38px; }
         }
     </style>
@@ -618,11 +652,11 @@
 
             <!-- Секция Медиа Плеер -->
             <section id="player" class="section">
-                <h2 class="section-title">Медиа плеер</h2>
+                <h2 class="section-title">Совместный плеер</h2>
                 
                 <div class="player-card">
                     <div class="card-header">
-                        <span class="card-title"><i class="fab fa-youtube" style="color: #ff0000; font-size: 18px;"></i> Смотреть YouTube</span>
+                        <span class="card-title"><i class="fab fa-youtube" style="color: #ff0000; font-size: 18px;"></i> Смотреть вместе с другом</span>
                     </div>
                     <div class="player-input-group">
                         <input type="text" id="ytUrl" class="player-input" placeholder="Вставьте ссылку на YouTube...">
@@ -718,7 +752,7 @@
         </div>
     </main>
 
-    <!-- ПОЛНОЭКРАННЫЙ ПЛЕЕР -->
+    <!-- ПОЛНОЭКРАННЫЙ ПЛЕЕР С SUPABASE REALTIME -->
     <div id="fullscreenPlayer" class="fullscreen-player">
         
         <!-- Управление фоном -->
@@ -735,6 +769,12 @@
             </select>
         </div>
 
+        <!-- Статус синхронизации -->
+        <div class="sync-status">
+            <div class="sync-dot"></div>
+            <span id="syncText">Комната синхронизируется</span>
+        </div>
+
         <button class="close-player-btn" onclick="closeFullscreenPlayer()" title="Закрыть">
             <i class="fas fa-times"></i>
         </button>
@@ -743,9 +783,9 @@
         <div class="bg-video-container" id="bgContainer"></div>
         <div class="bg-overlay"></div>
 
-        <!-- Основной видеоплеер по центру -->
+        <!-- Основной видеоплеер по центру (используем YouTube Iframe API) -->
         <div class="iframe-wrapper">
-            <iframe id="ytIframe" src="" allowfullscreen allow="autoplay"></iframe>
+            <div id="youtubePlayer"></div>
         </div>
     </div>
     
@@ -753,8 +793,13 @@
         <p>© 2026 WWK</p>
     </footer>
     
-    <!-- Скрипты -->
+    <!-- Скрипты и интеграция Supabase + YouTube API -->
     <script>
+        // Инициализация Supabase с твоими ключами
+        const SUPABASE_URL = 'https://htlcaodzwsmrzmwmlmin.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_qCaZQLHktysKd2w_m6pDw_MBFZy...'; // Подставлен твой публичный ключ
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         function toggleMenu() {
             document.getElementById('navMenu').classList.toggle('active');
         }
@@ -798,11 +843,24 @@
             return null;
         }
 
-        // Открытие полноэкранного просмотра
+        let player;
+        let isSyncingFromRemote = false;
+        let realtimeChannel = null;
+        const ROOM_ID = 'main_room';
+
+        // Загрузка YouTube Iframe API
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        function onYouTubeIframeAPIReady() {
+            // Плеер инициализируется при открытии
+        }
+
         function openFullscreenPlayer() {
             const urlInput = document.getElementById('ytUrl').value.trim();
             const playerModal = document.getElementById('fullscreenPlayer');
-            const ytIframe = document.getElementById('ytIframe');
 
             if (!urlInput) {
                 alert('Сначала вставьте ссылку на YouTube видео!');
@@ -810,14 +868,107 @@
             }
 
             const videoId = parseYoutubeId(urlInput);
-
-            if (videoId) {
-                ytIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-                playerModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            } else {
+            if (!videoId) {
                 alert('Некорректная ссылка на YouTube!');
+                return;
             }
+
+            playerModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            if (!player) {
+                player = new YT.Player('youtubePlayer', {
+                    height: '100%',
+                    width: '100%',
+                    videoId: videoId,
+                    playerVars: { 'autoplay': 1, 'controls': 1 },
+                    events: {
+                        'onReady': () => {
+                            initRealtimeSync(videoId);
+                        },
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            } else {
+                player.loadVideoById(videoId, 0);
+                initRealtimeSync(videoId);
+            }
+        }
+
+        // Отправка действий в Supabase при изменении состояния плеера
+        function onPlayerStateChange(event) {
+            if (isSyncingFromRemote) return;
+
+            // YT.PlayerState: -1 (unstarted), 0 (ended), 1 (playing), 2 (paused), 3 (buffering), 5 (cued)
+            const state = event.data;
+            if (state === YT.PlayerState.PLAYING || state === YT.PlayerState.PAUSED) {
+                const currentTime = player.getCurrentTime();
+                const videoId = parseYoutubeId(document.getElementById('ytUrl').value);
+                
+                supabaseClient.from('room_sync').upsert({
+                    id: ROOM_ID,
+                    video_id: videoId,
+                    time: currentTime,
+                    status: state, // 1 = play, 2 = pause
+                    updated_at: new Date()
+                }).then(({ error }) => {
+                    if (error) console.error('Ошибка отправки в базу:', error);
+                });
+            }
+        }
+
+        // Подписка на изменения через Supabase Realtime
+        function initRealtimeSync(videoId) {
+            if (realtimeChannel) {
+                supabaseClient.removeChannel(realtimeChannel);
+            }
+
+            // Загружаем текущее состояние из базы перед началом
+            supabaseClient.from('room_sync').select('*').eq('id', ROOM_ID).single().then(({ data }) => {
+                if (data && data.video_id === videoId) {
+                    isSyncingFromRemote = true;
+                    player.seekTo(data.time, true);
+                    if (data.status === 1) player.playVideo();
+                    else player.pauseVideo();
+                    setTimeout(() => { isSyncingFromRemote = false; }, 1000);
+                }
+            });
+
+            // Слушаем обновления от друга в реальном времени
+            realtimeChannel = supabaseClient
+                .channel('public:room_sync')
+                .on('postgres_changes', { 
+                    event: '*', 
+                    schema: 'public', 
+                    table: 'room_sync',
+                    filter: `id=eq.${ROOM_ID}`
+                }, payload => {
+                    const newData = payload.new;
+                    if (!newData) return;
+
+                    isSyncingFromRemote = true;
+                    
+                    // Если видео отличается, загружаем новое
+                    const currentVideoId = parseYoutubeId(document.getElementById('ytUrl').value);
+                    if (newData.video_id && newData.video_id !== currentVideoId) {
+                        document.getElementById('ytUrl').value = 'https://www.youtube.com/watch?v=' + newData.video_id;
+                        player.loadVideoById(newData.video_id, newData.time);
+                    } else {
+                        // Синхронизируем таймкод и статус (play/pause)
+                        const localTime = player.getCurrentTime();
+                        if (Math.abs(localTime - newData.time) > 1.5) {
+                            player.seekTo(newData.time, true);
+                        }
+                        if (newData.status === 1) {
+                            player.playVideo();
+                        } else if (newData.status === 2) {
+                            player.pauseVideo();
+                        }
+                    }
+
+                    setTimeout(() => { isSyncingFromRemote = false; }, 1000);
+                })
+                .subscribe();
         }
 
         // Смена фона
@@ -826,24 +977,16 @@
             const bgContainer = document.getElementById('bgContainer');
             
             bgContainer.innerHTML = '';
-
             let bgVideoId = '';
 
-            if (bgType === 'flying_stars') {
-                bgVideoId = 'lYUJmB2tm0I';
-            } else if (bgType === 'endless') {
-                bgVideoId = 'g33LSGLwLzo';
-            } else if (bgType === 'fireplace') {
-                bgVideoId = 'mmBEZ3x-QRo';
-            } else if (bgType === 'rain') {
-                bgVideoId = 'Zhq_ThHG2gA';
-            } else if (bgType === 'space') {
-                bgVideoId = 'KsqK85PfIQY';
-            } else if (bgType === 'custom') {
+            if (bgType === 'flying_stars') bgVideoId = 'lYUJmB2tm0I';
+            else if (bgType === 'endless') bgVideoId = 'g33LSGLwLzo';
+            else if (bgType === 'fireplace') bgVideoId = 'mmBEZ3x-QRo';
+            else if (bgType === 'rain') bgVideoId = 'Zhq_ThHG2gA';
+            else if (bgType === 'space') bgVideoId = 'KsqK85PfIQY';
+            else if (bgType === 'custom') {
                 const customUrl = prompt('Вставьте ссылку на YouTube видео для фона:');
-                if (customUrl) {
-                    bgVideoId = parseYoutubeId(customUrl);
-                }
+                if (customUrl) bgVideoId = parseYoutubeId(customUrl);
             }
 
             if (bgVideoId) {
@@ -854,19 +997,25 @@
         // Закрытие плеера
         function closeFullscreenPlayer() {
             const playerModal = document.getElementById('fullscreenPlayer');
-            const ytIframe = document.getElementById('ytIframe');
-            
             playerModal.classList.remove('active');
-            ytIframe.src = '';
+            
+            if (player) player.stopVideo();
+            if (realtimeChannel) supabaseClient.removeChannel(realtimeChannel);
+
             document.getElementById('bgContainer').innerHTML = '';
             document.getElementById('bgSelect').value = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        // ESC для закрытия плеера
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeFullscreenPlayer();
         });
     </script>
 </body>
 </html>
+"""
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print("HTML file generated successfully.")
