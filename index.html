@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WWK</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>WWK — Personal Page & VPN</title>
+    
+    <!-- Иконки FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
         
@@ -27,7 +29,7 @@
             right: 0;
             z-index: 1000;
             padding: 18px 24px;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
@@ -369,10 +371,10 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Навигация -->
     <nav class="navbar">
         <div class="nav-container">
-            <button class="menu-toggle" onclick="toggleMenu()">
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Открыть меню">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -387,16 +389,16 @@
         </div>
     </nav>
     
-    <!-- Main Content -->
+    <!-- Основной контент -->
     <main class="main-content">
         <div class="container">
-            <!-- Bio Section -->
+            <!-- Био Секция -->
             <section id="bio" class="section bio-section">
                 <div class="avatar-wrapper">
                     <div class="avatar-ring"></div>
                     <div class="avatar-ring"></div>
                     <div class="avatar-container">
-                        <img src="https://i.pinimg.com/736x/63/67/43/6367437b0923b3f779d1caf79490c818.jpg" alt="WWK" class="avatar-image">
+                        <img src="https://i.pinimg.com/736x/63/67/43/6367437b0923b3f779d1caf79490c818.jpg" alt="WWK Avatar" class="avatar-image">
                     </div>
                     <div class="verified-badge">
                         <i class="fas fa-check"></i>
@@ -417,7 +419,7 @@
                 </div>
             </section>
             
-            <!-- VPN Section -->
+            <!-- VPN Секция -->
             <section id="vpn" class="section">
                 <h2 class="section-title">VPN Серверы</h2>
                 
@@ -457,11 +459,11 @@
                         <span>·</span>
                         <span>🛒 <span style="color:#ffffff;">FunPay</span></span>
                     </div>
-                    <p style="font-size:13px; margin-top:8px; color:#52525b;">Для заказа пишите в <a href="https://t.me/your_support_user" style="color:#6366f1; text-decoration:none;">Telegram</a></p>
+                    <p style="font-size:13px; margin-top:8px; color:#52525b;">Для заказа пишите в <a href="https://t.me/your_support_user" target="_blank" rel="noopener noreferrer" style="color:#6366f1; text-decoration:none;">Telegram</a></p>
                 </div>
             </section>
             
-            <!-- Contacts Section -->
+            <!-- Контакты -->
             <section id="contacts" class="section contacts-section">
                 <h2 class="section-title">Контакты</h2>
                 
@@ -500,7 +502,7 @@
                 </div>
             </section>
             
-            <!-- Partners Section -->
+            <!-- Партнёры -->
             <section id="partners" class="section partners-section">
                 <h2 class="section-title">Партнёры</h2>
                 
@@ -535,12 +537,12 @@
         
         window.addEventListener('scroll', () => {
             let current = '';
-            const scrollPosition = window.scrollY + window.innerHeight / 2;
+            const scrollPosition = window.scrollY + 150;
             
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                const sectionBottom = sectionTop + section.offsetHeight;
-                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                const sectionHeight = section.offsetHeight;
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
                     current = section.getAttribute('id');
                 }
             });
