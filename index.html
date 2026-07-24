@@ -329,7 +329,7 @@
         }
         .player-btn:hover { transform: scale(1.02); }
 
-        /* Ссылки (Контакты / Партнеры) */
+        /* Ссылки */
         .links-list { display: flex; flex-direction: column; gap: 12px; }
         
         .link-item {
@@ -367,7 +367,7 @@
         .link-text { font-size: 15px; font-weight: 600; }
         .link-arrow { color: #52525b; font-size: 14px; }
 
-        /* ПОЛНОЭКРАННЫЙ ПЛЕЕР С СИНХРОНИЗАЦИЕЙ */
+        /* ПОЛНОЭКРАННЫЙ ПЛЕЕР */
         .fullscreen-player {
             position: fixed;
             top: 0; left: 0;
@@ -387,11 +387,8 @@
             top: 20px; left: 50%;
             transform: translateX(-50%);
             z-index: 10001;
-            /* Стилизовано под строгий чёрно-минималистичный цвет текста комнаты */
-            background: rgba(10, 10, 12, 0.85);
+            background: rgba(10, 10, 12, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #000000;
-            font-weight: 800;
             padding: 8px 16px;
             border-radius: 12px;
             font-size: 12px;
@@ -400,15 +397,17 @@
             gap: 8px;
             backdrop-filter: blur(15px);
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            color: #ffffff;
         }
         
-        /* Черный текст хеша комнаты */
+        /* Чёрный стиль текста хеша */
         #syncText {
-            color: #111113;
-            background: #e4e4e7;
-            padding: 2px 8px;
+            color: #000000;
+            background: #ffffff;
+            padding: 3px 8px;
             border-radius: 6px;
             font-family: monospace;
+            font-weight: 800;
             letter-spacing: 0.5px;
         }
 
@@ -456,7 +455,7 @@
         }
         .iframe-wrapper iframe { width: 100%; height: 100%; border: none; }
 
-        /* МОДАЛЬНОЕ ОКНО ВЫБОРА РЕЖИМА */
+        /* МОДАЛЬНОЕ ОКНО */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -502,7 +501,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Уведомление */
         #toast {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             background: #10b981; color: white; padding: 12px 24px; border-radius: 12px;
@@ -677,14 +675,13 @@
         </div>
     </div>
 
-    <!-- Уведомление о копировании -->
     <div id="toast"><i class="fas fa-check-circle"></i> Ссылка с крипто-комнатой скопирована!</div>
 
-    <!-- ПОЛНОЭКРАННЫЙ ПЛЕЕР С СИНХРОНИЗАЦИЕЙ -->
+    <!-- ПОЛНОЭКРАННЫЙ ПЛЕЕР -->
     <div id="fullscreenPlayer" class="fullscreen-player">
         <div class="sync-status">
             <div class="sync-dot"></div>
-            <span>Комната:</span> <span id="syncText">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</span>
+            <span>Комната:</span> <span id="syncText">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</span>
         </div>
 
         <button class="close-player-btn" onclick="closeFullscreenPlayer()" title="Закрыть">
@@ -700,7 +697,7 @@
         <p>© 2026 WWK</p>
     </footer>
     
-    <!-- Скрипты сайта и синхронизации Supabase -->
+    <!-- Скрипты -->
     <script>
         const SUPABASE_URL = 'https://htlcaodzwsmrzmwmlmin.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_qCaZQLHktysKd2bW_m6pDw_MBFzyCB-';
@@ -716,22 +713,21 @@
             });
         });
 
-        // Генерация названия комнаты в стиле Биткоин-кошелька (хеш формата Base58/Hex длиной 34 символа)
+        // Генератор крипто-хеша комнаты (в стиле адреса биткоин-кошелька)
         function generateCryptoWalletRoomName() {
             const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-            let result = '1'; // Традиционное начало биткоин адреса
-            for (let i = 0; i < 33; i++) {
+            let result = 'bc1q'; // Современный формат Bitcoin SegWit адреса
+            for (let i = 0; i < 35; i++) {
                 result += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             return result;
         }
 
-        let ACTIVE_ROOM_ID = '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa';
+        let ACTIVE_ROOM_ID = 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh';
         let player;
         let isSyncingFromRemote = false;
         let realtimeChannel = null;
 
-        // Открытие модального окна выбора при клике на "Запустить"
         function openModeModal() {
             const urlInput = document.getElementById('ytUrl').value.trim();
             if (!urlInput) {
@@ -751,7 +747,8 @@
             const urlParams = new URLSearchParams(window.location.search);
             let room = urlParams.get('room');
 
-            if (!room) {
+            // Если старое имя комнаты или её нет — генерируем новый чистый крипто-хеш
+            if (!room || room.includes('Cosmic-Phoenix') || room.length < 10) {
                 room = generateCryptoWalletRoomName();
                 const newUrl = `${window.location.origin}${window.location.pathname}?room=${room}`;
                 window.history.pushState({}, '', newUrl);
@@ -773,11 +770,14 @@
             setTimeout(() => { toast.style.display = 'none'; }, 3000);
         }
 
-        // Автозапуск, если открыли по прямой ссылке друга
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('room')) {
-                ACTIVE_ROOM_ID = urlParams.get('room');
+            let room = urlParams.get('room');
+            if (room && !room.includes('Cosmic-Phoenix')) {
+                ACTIVE_ROOM_ID = room;
+            } else {
+                // Очищаем старый мусор из адресной строки если он там остался
+                window.history.replaceState({}, '', window.location.pathname);
             }
         });
 
@@ -789,7 +789,6 @@
             return null;
         }
 
-        // Загрузка YouTube API
         const tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         document.head.appendChild(tag);
