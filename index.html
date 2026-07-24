@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WWK — Personal Page</title>
     
-    <!-- FontAwesome -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
@@ -28,7 +28,7 @@
             top: 0; left: 0; right: 0;
             z-index: 1000;
             padding: 18px 24px;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
@@ -44,7 +44,6 @@
         .nav-menu {
             display: flex;
             gap: 6px;
-            align-items: center;
         }
         
         .nav-link {
@@ -55,28 +54,11 @@
             font-weight: 600;
             border-radius: 10px;
             transition: all 0.2s ease;
-            cursor: pointer;
-            border: none;
-            background: transparent;
         }
         
         .nav-link:hover { color: #ffffff; background: rgba(255, 255, 255, 0.06); }
         .nav-link.active { color: #ffffff; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.15); }
         
-        /* Специальная кнопка Плеера в меню */
-        .nav-btn-player {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .nav-btn-player:hover {
-            background: #ffffff;
-            color: #000000;
-        }
-
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -171,7 +153,7 @@
             justify-content: center;
             gap: 10px;
             flex-wrap: wrap;
-            margin-bottom: 24px;
+            margin-bottom: 30px;
         }
         
         .badge {
@@ -185,28 +167,6 @@
             font-size: 13px;
             font-weight: 600;
             color: #d4d4d8;
-        }
-
-        .bio-player-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 26px;
-            background: #ffffff;
-            color: #000000;
-            border-radius: 100px;
-            font-size: 14px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            margin-bottom: 30px;
-        }
-
-        .bio-player-btn:hover {
-            transform: translateY(-2px);
-            background: #e4e4e7;
-            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
         }
         
         .scroll-hint {
@@ -337,87 +297,149 @@
         .link-arrow { color: #52525b; font-size: 14px; }
         .link-item:hover .link-arrow { color: #ffffff; }
 
-        /* --- ВСПЛЫВАЮЩЕЕ ОКНО ВВОДА (Input Modal) --- */
-        .modal-overlay {
+        /* --- ВАРИАНТ 1: СТИЛЬНЫЙ ПЛАВАЮЩИЙ ВИДЖЕТ (Sticky Glass Widget) --- */
+        .floating-widget-wrapper {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(12px);
-            z-index: 5000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            bottom: 24px;
+            right: 24px;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
         }
 
-        .modal-overlay.active { display: flex; }
-
-        .modal-card {
-            background: #121214;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 28px;
-            width: 100%;
-            max-width: 480px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        /* Кнопка свернутого вида */
+        .widget-toggle-btn {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(20, 20, 22, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
         }
 
-        .modal-close {
+        .widget-toggle-btn:hover {
+            transform: scale(1.08);
+            background: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
+        }
+
+        .widget-toggle-btn .pulse-ring {
             position: absolute;
-            top: 18px; right: 18px;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            animation: pulse 2.5s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+
+        /* Панель плеера */
+        .widget-card {
+            width: 320px;
+            background: rgba(18, 18, 20, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 18px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            margin-bottom: 12px;
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: bottom right;
+        }
+
+        .floating-widget-wrapper.active .widget-card {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        .widget-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .widget-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #e4e4e7;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .widget-title i { color: #ff0000; font-size: 14px; }
+
+        .widget-close {
             background: transparent;
             border: none;
             color: #71717a;
-            font-size: 18px;
+            font-size: 14px;
             cursor: pointer;
             transition: color 0.2s;
         }
 
-        .modal-close:hover { color: #ffffff; }
+        .widget-close:hover { color: #ffffff; }
 
-        .modal-title {
-            font-size: 20px;
-            font-weight: 800;
-            margin-bottom: 16px;
+        .widget-input-wrapper {
             display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .input-group { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
-
-        .yt-input {
-            width: 100%;
-            background: #000000;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            padding: 14px 16px;
-            color: #ffffff;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-
-        .yt-input:focus { border-color: #ffffff; }
-
-        .yt-btn {
-            background: #ffffff;
-            color: #000000;
-            border: none;
-            border-radius: 12px;
-            padding: 14px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             gap: 8px;
         }
 
-        .yt-btn:hover { background: #e4e4e7; }
+        .widget-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            padding: 10px 12px;
+            color: #ffffff;
+            font-size: 12px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .widget-input:focus { border-color: rgba(255, 255, 255, 0.4); }
+
+        .widget-play-btn {
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            border-radius: 10px;
+            padding: 0 14px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .widget-play-btn:hover {
+            background: #e4e4e7;
+            transform: scale(1.02);
+        }
 
         /* --- ПОЛНОЭКРАННЫЙ ПЛЕЕР (Fullscreen Player) --- */
         .fullscreen-player {
@@ -559,7 +581,7 @@
                 backdrop-filter: blur(20px);
                 flex-direction: column;
                 padding: 16px;
-                gap: 8px;
+                gap: 4px;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.08);
                 transform: translateY(-150%);
                 opacity: 0;
@@ -567,9 +589,11 @@
             }
             
             .nav-menu.active { transform: translateY(0); opacity: 1; }
-            .nav-link { padding: 12px 20px; width: 100%; text-align: center; justify-content: center; }
+            .nav-link { padding: 12px 20px; display: block; text-align: center; }
             .menu-toggle { display: flex; }
             .section { min-height: auto; padding: 30px 0; }
+            .floating-widget-wrapper { bottom: 16px; right: 16px; }
+            .widget-card { width: calc(100vw - 32px); }
             .bg-controls { top: 15px; left: 15px; padding: 6px 10px; }
             .close-player-btn { top: 15px; right: 15px; width: 38px; height: 38px; }
         }
@@ -591,11 +615,6 @@
                 <a href="#setup" class="nav-link">Сетап</a>
                 <a href="#contacts" class="nav-link">Контакты</a>
                 <a href="#partners" class="nav-link">Партнёры</a>
-                
-                <!-- Кнопка вызова плеера -->
-                <button class="nav-link nav-btn-player" onclick="openInputModal()">
-                    <i class="fas fa-play"></i> Плеер
-                </button>
             </div>
         </div>
     </nav>
@@ -623,13 +642,6 @@
                 <div class="badges">
                     <span class="badge"><i class="fas fa-shield-alt"></i> MCL</span>
                     <span class="badge"><i class="fas fa-users"></i> VZP</span>
-                </div>
-
-                <!-- Быстрая кнопка запуска плеера -->
-                <div>
-                    <button class="bio-player-btn" onclick="openInputModal()">
-                        <i class="fas fa-play"></i> Включить плеер
-                    </button>
                 </div>
                 
                 <div class="scroll-hint">
@@ -724,24 +736,29 @@
 
         </div>
     </main>
-    
-    <!-- Всплывающее окно (Modal) ввода ссылки -->
-    <div id="inputModal" class="modal-overlay">
-        <div class="modal-card">
-            <button class="modal-close" onclick="closeInputModal()"><i class="fas fa-times"></i></button>
-            <h3 class="modal-title"><i class="fab fa-youtube" style="color: #ff0000;"></i> Запуск Медиа</h3>
-            <p style="color: #a1a1aa; font-size: 13px;">Вставьте ссылку на любое видео или трек с YouTube для запуска просмотрщика с фоном.</p>
-            
-            <div class="input-group">
-                <input type="text" id="ytUrl" class="yt-input" placeholder="https://www.youtube.com/watch?v=...">
-                <button onclick="openFullscreenPlayer()" class="yt-btn">
-                    <i class="fas fa-play"></i> Смотреть
+
+    <!-- ПЛАВАЮЩИЙ МИНИ-ВИДЖЕТ ПЛЕЕРА -->
+    <div class="floating-widget-wrapper" id="widgetWrapper">
+        <div class="widget-card">
+            <div class="widget-header">
+                <span class="widget-title"><i class="fab fa-youtube"></i> Медиа плеер</span>
+                <button class="widget-close" onclick="toggleWidget()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="widget-input-wrapper">
+                <input type="text" id="ytUrl" class="widget-input" placeholder="Ссылка на YouTube...">
+                <button onclick="openFullscreenPlayer()" class="widget-play-btn">
+                    <i class="fas fa-play"></i>
                 </button>
             </div>
         </div>
+
+        <button class="widget-toggle-btn" onclick="toggleWidget()" title="Открыть медиа плеер">
+            <div class="pulse-ring"></div>
+            <i class="fas fa-compact-disc" id="widgetIcon"></i>
+        </button>
     </div>
 
-    <!-- Полноэкранный плеер -->
+    <!-- ПОЛНОЭКРАННЫЙ ПЛЕЕР -->
     <div id="fullscreenPlayer" class="fullscreen-player">
         
         <!-- Управление фоном -->
@@ -804,25 +821,20 @@
             });
             
             navLinks.forEach(link => {
-                if (link.getAttribute('href')) {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + current) {
-                        link.classList.add('active');
-                    }
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
                 }
             });
         });
 
-        // Открытие / Закрытие Модалки ввода
-        function openInputModal() {
-            document.getElementById('inputModal').classList.add('active');
+        // Открытие / Сворачивание плавающего виджета
+        function toggleWidget() {
+            const wrapper = document.getElementById('widgetWrapper');
+            wrapper.classList.toggle('active');
         }
 
-        function closeInputModal() {
-            document.getElementById('inputModal').classList.remove('active');
-        }
-
-        // Функция парсинга ID видео
+        // Парсинг YouTube ссылки
         function parseYoutubeId(url) {
             if (!url) return null;
             if (url.includes('v=')) return url.split('v=')[1].split('&')[0];
@@ -831,7 +843,7 @@
             return null;
         }
 
-        // Открытие полноэкранного плеера
+        // Открытие полноэкранного просмотра
         function openFullscreenPlayer() {
             const urlInput = document.getElementById('ytUrl').value.trim();
             const playerModal = document.getElementById('fullscreenPlayer');
@@ -845,7 +857,6 @@
             const videoId = parseYoutubeId(urlInput);
 
             if (videoId) {
-                closeInputModal();
                 ytIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
                 playerModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
@@ -854,7 +865,7 @@
             }
         }
 
-        // Переключение фона
+        // Смена фона
         function changeBackground() {
             const bgType = document.getElementById('bgSelect').value;
             const bgContainer = document.getElementById('bgContainer');
@@ -895,12 +906,9 @@
             document.body.style.overflow = 'auto';
         }
 
-        // ESC для закрытия окон
+        // ESC для закрытия плеера
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeInputModal();
-                closeFullscreenPlayer();
-            }
+            if (e.key === 'Escape') closeFullscreenPlayer();
         });
     </script>
 </body>
