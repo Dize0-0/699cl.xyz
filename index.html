@@ -297,7 +297,7 @@
         .link-arrow { color: #52525b; font-size: 14px; }
         .link-item:hover .link-arrow { color: #ffffff; }
 
-        /* --- ВАРИАНТ 1: СТИЛЬНЫЙ ПЛАВАЮЩИЙ ВИДЖЕТ (Sticky Glass Widget) --- */
+        /* --- СТИЛЬНЫЙ ПЛАВАЮЩИЙ ВИДЖЕТ (Sticky Glass Widget) --- */
         .floating-widget-wrapper {
             position: fixed;
             bottom: 24px;
@@ -766,6 +766,7 @@
             <span class="bg-label"><i class="fas fa-sliders"></i> Фон:</span>
             <select id="bgSelect" class="bg-select" onchange="changeBackground()">
                 <option value="none">Тёмный</option>
+                <option value="flying_stars">Летящие звезды</option>
                 <option value="endless">Endless Dream</option>
                 <option value="fireplace">Камин</option>
                 <option value="rain">Дождь</option>
@@ -874,14 +875,16 @@
 
             let bgVideoId = '';
 
-            if (bgType === 'endless') {
-                bgVideoId = 'g33LSGLwLzo'; // Endless Dream
+            if (bgType === 'flying_stars') {
+                bgVideoId = 'lYUJmB2tm0I';
+            } else if (bgType === 'endless') {
+                bgVideoId = 'g33LSGLwLzo';
             } else if (bgType === 'fireplace') {
-                bgVideoId = 'mmBEZ3x-QRo'; // Камин
+                bgVideoId = 'mmBEZ3x-QRo';
             } else if (bgType === 'rain') {
-                bgVideoId = 'Zhq_ThHG2gA'; // Дождь
+                bgVideoId = 'Zhq_ThHG2gA';
             } else if (bgType === 'space') {
-                bgVideoId = 'KsqK85PfIQY'; // Космос
+                bgVideoId = 'KsqK85PfIQY';
             } else if (bgType === 'custom') {
                 const customUrl = prompt('Вставьте ссылку на YouTube видео для фона:');
                 if (customUrl) {
