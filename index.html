@@ -254,6 +254,63 @@
         .spec-item i { color: #ffffff; font-size: 14px; width: 18px; text-align: center; }
         .spec-item strong { color: #ffffff; }
 
+        /* ВСТРОЕННЫЙ БЛОК МЕДИА ПЛЕЕРА (Вместо плавающей кнопки) */
+        .player-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 24px;
+            transition: all 0.2s ease;
+        }
+
+        .player-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .player-input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .player-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .player-input:focus {
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .player-btn {
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            border-radius: 12px;
+            padding: 0 20px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .player-btn:hover {
+            background: #e4e4e7;
+            transform: scale(1.02);
+        }
+
         /* Ссылки */
         .links-list {
             display: flex;
@@ -296,150 +353,6 @@
         .link-text { font-size: 15px; font-weight: 600; }
         .link-arrow { color: #52525b; font-size: 14px; }
         .link-item:hover .link-arrow { color: #ffffff; }
-
-        /* --- СТИЛЬНЫЙ ПЛАВАЮЩИЙ ВИДЖЕТ (Sticky Glass Widget) --- */
-        .floating-widget-wrapper {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-
-        /* Кнопка свернутого вида */
-        .widget-toggle-btn {
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background: rgba(20, 20, 22, 0.85);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .widget-toggle-btn:hover {
-            transform: scale(1.08);
-            background: #ffffff;
-            color: #000000;
-            border-color: #ffffff;
-        }
-
-        .widget-toggle-btn .pulse-ring {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            animation: pulse 2.5s infinite;
-            pointer-events: none;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.4); opacity: 0; }
-        }
-
-        /* Панель плеера */
-        .widget-card {
-            width: 320px;
-            background: rgba(18, 18, 20, 0.85);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 20px;
-            padding: 18px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-            margin-bottom: 12px;
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-            pointer-events: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-origin: bottom right;
-        }
-
-        .floating-widget-wrapper.active .widget-card {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            pointer-events: all;
-        }
-
-        .widget-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-
-        .widget-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: #e4e4e7;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            letter-spacing: 0.3px;
-        }
-
-        .widget-title i { color: #ff0000; font-size: 14px; }
-
-        .widget-close {
-            background: transparent;
-            border: none;
-            color: #71717a;
-            font-size: 14px;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .widget-close:hover { color: #ffffff; }
-
-        .widget-input-wrapper {
-            display: flex;
-            gap: 8px;
-        }
-
-        .widget-input {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 10px;
-            padding: 10px 12px;
-            color: #ffffff;
-            font-size: 12px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .widget-input:focus { border-color: rgba(255, 255, 255, 0.4); }
-
-        .widget-play-btn {
-            background: #ffffff;
-            color: #000000;
-            border: none;
-            border-radius: 10px;
-            padding: 0 14px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .widget-play-btn:hover {
-            background: #e4e4e7;
-            transform: scale(1.02);
-        }
 
         /* --- ПОЛНОЭКРАННЫЙ ПЛЕЕР (Fullscreen Player) --- */
         .fullscreen-player {
@@ -592,8 +505,7 @@
             .nav-link { padding: 12px 20px; display: block; text-align: center; }
             .menu-toggle { display: flex; }
             .section { min-height: auto; padding: 30px 0; }
-            .floating-widget-wrapper { bottom: 16px; right: 16px; }
-            .widget-card { width: calc(100vw - 32px); }
+            .player-input-group { flex-direction: column; }
             .bg-controls { top: 15px; left: 15px; padding: 6px 10px; }
             .close-player-btn { top: 15px; right: 15px; width: 38px; height: 38px; }
         }
@@ -612,6 +524,7 @@
             
             <div class="nav-menu" id="navMenu">
                 <a href="#bio" class="nav-link active">Био</a>
+                <a href="#player" class="nav-link">Плеер</a>
                 <a href="#setup" class="nav-link">Сетап</a>
                 <a href="#contacts" class="nav-link">Контакты</a>
                 <a href="#partners" class="nav-link">Партнёры</a>
@@ -647,6 +560,24 @@
                 <div class="scroll-hint">
                     <span>Листай вниз</span>
                     <i class="fas fa-chevron-down"></i>
+                </div>
+            </section>
+
+            <!-- Секция Медиа Плеер -->
+            <section id="player" class="section">
+                <h2 class="section-title">Медиа плеер</h2>
+                
+                <div class="player-card">
+                    <div class="card-header">
+                        <span class="card-title"><i class="fab fa-youtube" style="color: #ff0000;"></i> Смотреть YouTube</span>
+                        <span class="card-badge">Cinema Mode</span>
+                    </div>
+                    <div class="player-input-group">
+                        <input type="text" id="ytUrl" class="player-input" placeholder="Вставьте ссылку на YouTube...">
+                        <button onclick="openFullscreenPlayer()" class="player-btn">
+                            <i class="fas fa-play"></i> Запустить
+                        </button>
+                    </div>
                 </div>
             </section>
             
@@ -737,27 +668,6 @@
         </div>
     </main>
 
-    <!-- ПЛАВАЮЩИЙ МИНИ-ВИДЖЕТ ПЛЕЕРА -->
-    <div class="floating-widget-wrapper" id="widgetWrapper">
-        <div class="widget-card">
-            <div class="widget-header">
-                <span class="widget-title"><i class="fab fa-youtube"></i> Медиа плеер</span>
-                <button class="widget-close" onclick="toggleWidget()"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="widget-input-wrapper">
-                <input type="text" id="ytUrl" class="widget-input" placeholder="Ссылка на YouTube...">
-                <button onclick="openFullscreenPlayer()" class="widget-play-btn">
-                    <i class="fas fa-play"></i>
-                </button>
-            </div>
-        </div>
-
-        <button class="widget-toggle-btn" onclick="toggleWidget()" title="Открыть медиа плеер">
-            <div class="pulse-ring"></div>
-            <i class="fas fa-compact-disc" id="widgetIcon"></i>
-        </button>
-    </div>
-
     <!-- ПОЛНОЭКРАННЫЙ ПЛЕЕР -->
     <div id="fullscreenPlayer" class="fullscreen-player">
         
@@ -828,12 +738,6 @@
                 }
             });
         });
-
-        // Открытие / Сворачивание плавающего виджета
-        function toggleWidget() {
-            const wrapper = document.getElementById('widgetWrapper');
-            wrapper.classList.toggle('active');
-        }
 
         // Парсинг YouTube ссылки
         function parseYoutubeId(url) {
