@@ -152,10 +152,8 @@
         
         .verified-badge {
             position: absolute;
-            bottom: 4px;
-            right: 4px;
-            width: 28px;
-            height: 28px;
+            bottom: 4px; right: 4px;
+            width: 28px; height: 28px;
             background: #ffffff;
             border-radius: 50%;
             display: flex;
@@ -228,12 +226,8 @@
             letter-spacing: -0.5px;
         }
         
-        /* Карточки */
-        .cards-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
+        /* Карточки сетапа */
+        .cards-grid { display: flex; flex-direction: column; gap: 16px; }
         
         .card {
             background: rgba(255, 255, 255, 0.02);
@@ -266,12 +260,7 @@
             gap: 10px;
         }
 
-        .spec-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .spec-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
         
         .spec-item {
             color: #a1a1aa;
@@ -295,7 +284,7 @@
         
         .spec-item strong { color: #ffffff; font-weight: 600; }
 
-        /* МЕДИА ПЛЕЕР (на странице) */
+        /* ПЛЕЕР */
         .player-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.06);
@@ -340,12 +329,8 @@
         }
         .player-btn:hover { transform: scale(1.02); }
 
-        /* Ссылки */
-        .links-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        /* Ссылки (Контакты / Партнеры) */
+        .links-list { display: flex; flex-direction: column; gap: 12px; }
         
         .link-item {
             display: flex;
@@ -402,27 +387,40 @@
             top: 20px; left: 50%;
             transform: translateX(-50%);
             z-index: 10001;
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.4);
-            color: #34d399;
+            /* Стилизовано под строгий чёрно-минималистичный цвет текста комнаты */
+            background: rgba(10, 10, 12, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #000000;
+            font-weight: 800;
             padding: 8px 16px;
             border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 12px;
             display: flex;
             align-items: center;
             gap: 8px;
             backdrop-filter: blur(15px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
+        
+        /* Черный текст хеша комнаты */
+        #syncText {
+            color: #111113;
+            background: #e4e4e7;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-family: monospace;
+            letter-spacing: 0.5px;
+        }
+
         .sync-dot {
             width: 8px; height: 8px;
-            background: #34d399;
+            background: #10b981;
             border-radius: 50%;
             animation: pulse 1.5s infinite;
         }
         @keyframes pulse {
             0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 10px #34d399; }
+            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 10px #10b981; }
             100% { transform: scale(0.95); opacity: 0.8; }
         }
 
@@ -667,7 +665,7 @@
     <div id="roomModal" class="modal-overlay">
         <div class="modal-box">
             <h2>Режим просмотра</h2>
-            <p>Выберите, как вы хотите смотреть видео. При выборе «С другом» ссылка на комнату сгенерируется и скопируется в буфер обмена!</p>
+            <p>Выберите, как вы хотите смотреть видео. При выборе «С другом» ссылка на комнату сгенерируется в виде крипто-ключа и скопируется в буфер обмена!</p>
             <div class="modal-buttons">
                 <button class="modal-btn modal-btn-secondary" onclick="startSolo()">
                     <i class="fas fa-user"></i> Смотреть одному
@@ -680,13 +678,13 @@
     </div>
 
     <!-- Уведомление о копировании -->
-    <div id="toast"><i class="fas fa-check-circle"></i> Ссылка на комнату скопирована в буфер!</div>
+    <div id="toast"><i class="fas fa-check-circle"></i> Ссылка с крипто-комнатой скопирована!</div>
 
     <!-- ПОЛНОЭКРАННЫЙ ПЛЕЕР С СИНХРОНИЗАЦИЕЙ -->
     <div id="fullscreenPlayer" class="fullscreen-player">
         <div class="sync-status">
             <div class="sync-dot"></div>
-            <span id="syncText">Комната синхронизируется</span>
+            <span>Комната:</span> <span id="syncText">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</span>
         </div>
 
         <button class="close-player-btn" onclick="closeFullscreenPlayer()" title="Закрыть">
@@ -718,17 +716,17 @@
             });
         });
 
-        // Генерация красивого названия комнаты
-        function generateNiceRoomName() {
-            const adjectives = ['Cool', 'Super', 'Epic', 'Cosmic', 'Fast', 'Neon', 'Mega', 'Cyber'];
-            const nouns = ['Panda', 'Tiger', 'Rocket', 'Phoenix', 'Ghost', 'Ninja', 'Storm', 'Shadow'];
-            const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
-            const noun = nouns[Math.floor(Math.random() * nouns.length)];
-            const num = Math.floor(100 + Math.random() * 900);
-            return `${adj}-${noun}-${num}`;
+        // Генерация названия комнаты в стиле Биткоин-кошелька (хеш формата Base58/Hex длиной 34 символа)
+        function generateCryptoWalletRoomName() {
+            const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+            let result = '1'; // Традиционное начало биткоин адреса
+            for (let i = 0; i < 33; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
         }
 
-        let ACTIVE_ROOM_ID = 'main_room';
+        let ACTIVE_ROOM_ID = '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa';
         let player;
         let isSyncingFromRemote = false;
         let realtimeChannel = null;
@@ -744,7 +742,7 @@
         }
 
         function startSolo() {
-            ACTIVE_ROOM_ID = 'solo_' + Math.floor(Math.random() * 10000);
+            ACTIVE_ROOM_ID = 'solo_' + generateCryptoWalletRoomName();
             document.getElementById('roomModal').classList.remove('active');
             launchPlayer(false);
         }
@@ -754,7 +752,7 @@
             let room = urlParams.get('room');
 
             if (!room) {
-                room = generateNiceRoomName();
+                room = generateCryptoWalletRoomName();
                 const newUrl = `${window.location.origin}${window.location.pathname}?room=${room}`;
                 window.history.pushState({}, '', newUrl);
             }
@@ -780,7 +778,6 @@
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('room')) {
                 ACTIVE_ROOM_ID = urlParams.get('room');
-                // Если в ссылке есть комната, можно автоматически открыть плеер или оставить поле готовым
             }
         });
 
@@ -807,7 +804,7 @@
                 return;
             }
 
-            document.getElementById('syncText').innerText = isShared ? `Комната: ${ACTIVE_ROOM_ID}` : 'Соло режим';
+            document.getElementById('syncText').innerText = ACTIVE_ROOM_ID;
             playerModal.classList.add('active');
             document.body.style.overflow = 'hidden';
 
