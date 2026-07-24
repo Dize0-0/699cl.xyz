@@ -19,11 +19,32 @@
         
         body {
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #000000;
+            background-color: #030305;
             color: #ffffff;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+        }
+
+        /* Красивые фоновые градиенты */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -200px; left: -200px;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -200px; right: -200px;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
         }
         
         /* Навигация */
@@ -32,7 +53,7 @@
             top: 0; left: 0; right: 0;
             z-index: 1000;
             padding: 16px 24px;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(3, 3, 5, 0.8);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -160,7 +181,7 @@
             align-items: center;
             justify-content: center;
             z-index: 10;
-            border: 2px solid #000000;
+            border: 2px solid #030305;
             box-shadow: 0 4px 10px rgba(0,0,0,0.8);
         }
         
@@ -302,7 +323,7 @@
 
         .player-input {
             flex: 1;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             padding: 14px 18px;
@@ -315,7 +336,7 @@
 
         .player-btn {
             background: #ffffff;
-            color: #000000;
+            color: #030305;
             border: none;
             border-radius: 12px;
             padding: 0 24px;
@@ -372,7 +393,7 @@
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            background: #000000;
+            background: #030305;
             z-index: 9999;
             display: none;
             flex-direction: column;
@@ -382,64 +403,79 @@
         }
         .fullscreen-player.active { display: flex; }
 
+        /* КРАСИВЫЙ СТИЛЬНЫЙ БЭЙДЖ СТАТУСА (ВМЕСТО ПРОСТОГО ТЕКСТА) */
         .sync-status {
             position: absolute;
-            top: 20px; left: 50%;
+            top: 24px; left: 50%;
             transform: translateX(-50%);
             z-index: 10001;
-            background: rgba(10, 10, 12, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-size: 12px;
+            background: linear-gradient(135deg, rgba(20, 20, 28, 0.85) 0%, rgba(10, 10, 15, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 13px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            color: #ffffff;
+            gap: 12px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 255, 0.03);
+            color: #a1a1aa;
+            font-weight: 500;
         }
         
-        /* Чёрный стиль текста хеша */
+        .sync-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #d4d4d8;
+        }
+        .sync-label i { color: #818cf8; font-size: 12px; }
+
+        /* Оформление самого ключа комнаты */
         #syncText {
-            color: #000000;
-            background: #ffffff;
-            padding: 3px 8px;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
             border-radius: 6px;
-            font-family: monospace;
-            font-weight: 800;
+            font-family: 'SF Mono', Monaco, Consolas, monospace;
+            font-weight: 700;
+            font-size: 12px;
             letter-spacing: 0.5px;
         }
 
         .sync-dot {
-            width: 8px; height: 8px;
+            width: 7px; height: 7px;
             background: #10b981;
             border-radius: 50%;
-            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 8px #10b981;
+            animation: pulse-dot 2s infinite;
         }
-        @keyframes pulse {
+        @keyframes pulse-dot {
             0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 10px #10b981; }
+            50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 12px #10b981; }
             100% { transform: scale(0.95); opacity: 0.8; }
         }
 
         .close-player-btn {
             position: absolute;
-            top: 20px; right: 20px;
+            top: 24px; right: 24px;
             z-index: 10001;
-            background: rgba(10, 10, 12, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(20, 20, 28, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             color: #ffffff;
-            font-size: 18px;
-            width: 44px; height: 44px;
+            font-size: 16px;
+            width: 42px; height: 42px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s ease;
+            backdrop-filter: blur(20px);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .close-player-btn:hover { background: #ffffff; color: #000000; }
+        .close-player-btn:hover { background: #ffffff; color: #030305; transform: scale(1.05); }
 
         .iframe-wrapper {
             position: relative;
@@ -450,7 +486,7 @@
             border-radius: 18px;
             overflow: hidden;
             box-shadow: 0 25px 60px rgba(0,0,0,0.9);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             background: #000000;
         }
         .iframe-wrapper iframe { width: 100%; height: 100%; border: none; }
@@ -459,7 +495,7 @@
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(3, 3, 5, 0.85);
             backdrop-filter: blur(20px);
             display: none;
             align-items: center;
@@ -490,7 +526,7 @@
         .modal-box p { color: #a1a1aa; font-size: 14px; margin-bottom: 30px; line-height: 1.5; }
         .modal-buttons { display: flex; flex-direction: column; gap: 12px; }
         .modal-btn {
-            background: #ffffff; color: #000000; border: none;
+            background: #ffffff; color: #030305; border: none;
             padding: 14px 20px; border-radius: 14px; font-size: 15px; font-weight: 700;
             cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
             transition: transform 0.2s;
@@ -663,7 +699,7 @@
     <div id="roomModal" class="modal-overlay">
         <div class="modal-box">
             <h2>Режим просмотра</h2>
-            <p>Выберите, как вы хотите смотреть видео. При выборе «С другом» ссылка на комнату сгенерируется в виде крипто-ключа и скопируется в буфер обмена!</p>
+            <p>Выберите, как вы хотите смотреть видео. При выборе «С другом» ссылка на защищенную комнату сгенерируется и скопируется в буфер обмена!</p>
             <div class="modal-buttons">
                 <button class="modal-btn modal-btn-secondary" onclick="startSolo()">
                     <i class="fas fa-user"></i> Смотреть одному
@@ -675,13 +711,15 @@
         </div>
     </div>
 
-    <div id="toast"><i class="fas fa-check-circle"></i> Ссылка с крипто-комнатой скопирована!</div>
+    <div id="toast"><i class="fas fa-check-circle"></i> Ссылка на комнату скопирована!</div>
 
     <!-- ПОЛНОЭКРАННЫЙ ПЛЕЕР -->
     <div id="fullscreenPlayer" class="fullscreen-player">
+        <!-- КРАСИВАЯ СТЕКЛЯННАЯ ПЛАШКА СТАТУСА -->
         <div class="sync-status">
             <div class="sync-dot"></div>
-            <span>Комната:</span> <span id="syncText">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</span>
+            <div class="sync-label"><i class="fas fa-shield-halved"></i> Комната:</div> 
+            <span id="syncText">0x749a...4f1e</span>
         </div>
 
         <button class="close-player-btn" onclick="closeFullscreenPlayer()" title="Закрыть">
@@ -713,17 +751,16 @@
             });
         });
 
-        // Генератор крипто-хеша комнаты (в стиле адреса биткоин-кошелька)
-        function generateCryptoWalletRoomName() {
-            const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-            let result = 'bc1q'; // Современный формат Bitcoin SegWit адреса
-            for (let i = 0; i < 35; i++) {
-                result += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return result;
+        function generateCryptoKey() {
+            const hexChars = '0123456789abcdef';
+            let part1 = '';
+            let part2 = '';
+            for (let i = 0; i < 6; i++) part1 += hexChars.charAt(Math.floor(Math.random() * hexChars.length));
+            for (let i = 0; i < 4; i++) part2 += hexChars.charAt(Math.floor(Math.random() * hexChars.length));
+            return '0x' + part1 + '...' + part2;
         }
 
-        let ACTIVE_ROOM_ID = 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh';
+        let ACTIVE_ROOM_ID = '0x749a...4f1e';
         let player;
         let isSyncingFromRemote = false;
         let realtimeChannel = null;
@@ -738,7 +775,7 @@
         }
 
         function startSolo() {
-            ACTIVE_ROOM_ID = 'solo_' + generateCryptoWalletRoomName();
+            ACTIVE_ROOM_ID = 'solo_' + generateCryptoKey();
             document.getElementById('roomModal').classList.remove('active');
             launchPlayer(false);
         }
@@ -747,9 +784,8 @@
             const urlParams = new URLSearchParams(window.location.search);
             let room = urlParams.get('room');
 
-            // Если старое имя комнаты или её нет — генерируем новый чистый крипто-хеш
-            if (!room || room.includes('Cosmic-Phoenix') || room.length < 10) {
-                room = generateCryptoWalletRoomName();
+            if (!room || room.includes('Cosmic-Phoenix') || room.length < 8) {
+                room = 'room_' + Math.random().toString(36).substring(2, 10) + '_' + Math.random().toString(36).substring(2, 6);
                 const newUrl = `${window.location.origin}${window.location.pathname}?room=${room}`;
                 window.history.pushState({}, '', newUrl);
             }
@@ -776,7 +812,6 @@
             if (room && !room.includes('Cosmic-Phoenix')) {
                 ACTIVE_ROOM_ID = room;
             } else {
-                // Очищаем старый мусор из адресной строки если он там остался
                 window.history.replaceState({}, '', window.location.pathname);
             }
         });
@@ -803,7 +838,7 @@
                 return;
             }
 
-            document.getElementById('syncText').innerText = ACTIVE_ROOM_ID;
+            document.getElementById('syncText').innerText = ACTIVE_ROOM_ID.length > 18 ? ACTIVE_ROOM_ID.substring(0, 10) + '...' + ACTIVE_ROOM_ID.slice(-4) : ACTIVE_ROOM_ID;
             playerModal.classList.add('active');
             document.body.style.overflow = 'hidden';
 
