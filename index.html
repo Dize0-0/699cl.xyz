@@ -70,6 +70,7 @@
         .setup {
             border-top: 1px solid #141418;
             padding-top: 22px;
+            margin-bottom: 22px;
         }
 
         .setup p {
@@ -92,10 +93,34 @@
             color: #ffffff;
         }
 
+        .track-info {
+            border-top: 1px solid #141418;
+            padding-top: 18px;
+            max-width: 320px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .track-title {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .track-artist {
+            color: #8a8a9a;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
         @media (max-width: 480px) {
             .avatar { width: 110px; height: 110px; }
             .social-icons a { font-size: 26px; }
             .setup p { font-size: 13px; max-width: 280px; }
+            .track-info { max-width: 280px; }
         }
     </style>
 </head>
@@ -123,6 +148,11 @@
     <div class="setup">
         <p><span>Attack Shark R1</span> <span>€25</span></p>
         <p><span>Attack Shark X68 HE</span> <span>€49</span></p>
+    </div>
+
+    <div class="track-info">
+        <div class="track-title">ANNA ASTI - Повело</div>
+        <div class="track-artist">slowed remix</div>
     </div>
 
 </div>
