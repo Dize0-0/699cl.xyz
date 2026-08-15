@@ -16,11 +16,11 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            overflow: hidden; /* Запрещаем скролл до входа */
+            overflow: hidden; /* Запрещаем скролл до клика */
         }
 
-        /* --- Стили для стартового экрана с кнопкой --- */
-        .start-screen {
+        /* --- Стили для стартового экрана (Подсказки) --- */
+        .click-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -31,33 +31,25 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
+            cursor: pointer;
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
-        .start-btn {
-            background: transparent;
-            color: #ffffff;
-            border: 2px solid #2a2a32;
-            padding: 15px 40px;
+        .click-overlay span {
+            color: #8a8a9a;
             font-size: 14px;
-            font-weight: 500;
             letter-spacing: 2px;
             text-transform: uppercase;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-family: inherit;
+            animation: pulse 2s infinite;
         }
 
-        /* Анимация при наведении на кнопку */
-        .start-btn:hover {
-            border-color: #5a5aff;
-            background: rgba(90, 90, 255, 0.1);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(90, 90, 255, 0.2);
+        @keyframes pulse {
+            0% { opacity: 0.3; transform: scale(0.98); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.3; transform: scale(0.98); }
         }
 
-        .start-screen.hidden {
+        .click-overlay.hidden {
             opacity: 0;
             visibility: hidden;
         }
@@ -186,18 +178,17 @@
 </head>
 <body>
 
-<!-- Стартовый экран с кнопкой -->
-<div id="start-screen" class="start-screen">
-    <button id="start-btn" class="start-btn">Enter</button>
+<!-- Экран загрузки / подсказка для клика -->
+<div id="click-overlay" class="click-overlay">
+    <span>Click anywhere to start</span>
 </div>
 
-<!-- Аудиофайл -->
-<audio id="bg-music" src="music.mp3" loop></audio>
+<!-- Аудиофайл. Я добавил ?v=2, чтобы сбросить кэш и заиграла новая музыка -->
+<audio id="bg-music" src="music.mp3?v=2" loop></audio>
 
 <!-- Основной контент сайта -->
 <div id="main-content" class="container">
 
-    <!-- Убедись, что картинка называется именно так и лежит в папке на GitHub -->
     <img class="avatar" src="avatar.jpg" alt="WWK" />
 
     <div class="social-icons">
@@ -225,36 +216,36 @@
     </div>
 
     <div class="track-info">
+        <!-- Не забудь поменять здесь название трека, если загрузил другой -->
         <div class="track-title">ANNA ASTI - Повело</div>
         <div class="track-artist">slowed remix</div>
     </div>
 
 </div>
 
-<!-- Скрипт логики клика по кнопке -->
+<!-- Скрипт логики клика -->
 <script>
-    const startScreen = document.getElementById('start-screen');
-    const startBtn = document.getElementById('start-btn');
+    const overlay = document.getElementById('click-overlay');
     const mainContent = document.getElementById('main-content');
     const music = document.getElementById('bg-music');
 
-    // Теперь мы слушаем клик именно по кнопке, а не по всему экрану
-    startBtn.addEventListener('click', function() {
+    document.body.addEventListener('click', function() {
         // Запускаем музыку
         if (music.paused) {
             music.play();
             music.volume = 0.5; // Громкость 50%
         }
         
-        // Прячем черный экран с кнопкой
-        startScreen.classList.add('hidden');
+        // Прячем черный экран
+        overlay.classList.add('hidden');
         
         // Плавно показываем профиль
         mainContent.classList.add('visible');
         
         // Разрешаем скролл
         document.body.style.overflow = 'auto';
-    });
+        
+    }, { once: true }); // Сработает строго один раз
 </script>
 
 </body>
