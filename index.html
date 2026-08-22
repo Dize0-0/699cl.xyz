@@ -16,10 +16,10 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            overflow: hidden; /* Запрещаем скролл до клика */
+            overflow: hidden;
         }
 
-        /* --- Стили для стартового экрана (Подсказки) --- */
+        /* Экран входа с переключением RU / EN */
         .click-overlay {
             position: fixed;
             top: 0;
@@ -32,34 +32,40 @@
             align-items: center;
             z-index: 9999;
             cursor: pointer;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            transition: opacity 0.7s ease, visibility 0.7s ease;
         }
 
-        .click-overlay span {
-            color: #8a8a9a;
-            font-size: 14px;
+        .click-overlay .press-hint {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 500;
             letter-spacing: 2px;
-            text-transform: uppercase;
-            animation: pulse 2s infinite;
+            text-transform: lowercase;
+            user-select: none;
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
-        @keyframes pulse {
-            0% { opacity: 0.3; transform: scale(0.98); }
-            50% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0.3; transform: scale(0.98); }
+        .press-hint.fade-out {
+            opacity: 0;
+            transform: scale(0.96);
+        }
+
+        .press-hint.fade-in {
+            opacity: 0.85;
+            transform: scale(1);
         }
 
         .click-overlay.hidden {
             opacity: 0;
             visibility: hidden;
         }
-        /* ----------------------------------------------- */
 
+        /* Основной блок */
         .container {
             max-width: 400px;
             width: 100%;
             text-align: center;
-            opacity: 0; /* Скрываем контент до клика */
+            opacity: 0;
             transform: translateY(20px);
             transition: all 1s ease 0.3s;
         }
@@ -74,7 +80,7 @@
             height: 140px;
             border-radius: 50%;
             object-fit: cover;
-            margin: 0 auto 30px;
+            margin: 0 auto 16px;
             display: block;
             border: 2px solid #2a2a32;
             box-shadow: 0 12px 32px rgba(0,0,0,0.8);
@@ -82,8 +88,40 @@
         }
 
         .avatar:hover {
-            border-color: #5a5aff;
+            border-color: #ffffff;
             transform: scale(1.02);
+        }
+
+        .profile-name {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .profile-name .username {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        /* Белая галочка */
+        .verified-badge {
+            width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .verified-badge svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.45));
         }
 
         .social-icons {
@@ -168,8 +206,31 @@
             margin-top: 3px;
         }
 
+        .view-counter {
+            margin-top: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #555562;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.4px;
+            transition: color 0.2s ease;
+            user-select: none;
+        }
+
+        .view-counter i {
+            font-size: 11px;
+        }
+
+        .view-counter:hover {
+            color: #8a8a9a;
+        }
+
         @media (max-width: 480px) {
             .avatar { width: 110px; height: 110px; }
+            .profile-name .username { font-size: 20px; }
+            .verified-badge { width: 18px; height: 18px; }
             .social-icons a { font-size: 26px; }
             .setup p { font-size: 13px; max-width: 280px; }
             .track-info { max-width: 280px; }
@@ -178,19 +239,28 @@
 </head>
 <body>
 
-<!-- Экран загрузки / подсказка для клика -->
+<!-- Экран клика со сменяющимся RU/EN текстом -->
 <div id="click-overlay" class="click-overlay">
-    <span>Click anywhere to start</span>
+    <span id="hint-text" class="press-hint fade-in">нажми чтобы войти</span>
 </div>
 
-<!-- Аудиофайл (добавлен ?v=2 для сброса кэша) -->
 <audio id="bg-music" src="music.mp3?v=2" loop></audio>
 
-<!-- Основной контент сайта -->
 <div id="main-content" class="container">
 
-    <!-- Вернул рабочую ссылку на аватарку -->
     <img class="avatar" src="https://avatars.mds.yandex.net/i?id=59e8220ea8a8b0cd894a964d271707c218ff9d55-12184992-images-thumbs&n=13" alt="WWK" />
+
+    <div class="profile-name">
+        <span class="username">wwk</span>
+        <div class="verified-badge" title="Verified">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L14.7 4.2L18.1 3.8L19.5 6.9L22.6 8.5L22.2 12L24 14.8L22.2 17.6L22.6 21.1L19.5 22.7L18.1 25.8L14.7 25.4L12 27.6L9.3 25.4L5.9 25.8L4.5 22.7L1.4 21.1L1.8 17.6L0 14.8L1.8 12L1.4 8.5L4.5 6.9L5.9 3.8L9.3 4.2L12 2Z" 
+                      transform="scale(0.8) translate(3, -1)" 
+                      fill="#ffffff"/>
+                <path d="M8.5 12.2L11 14.7L16 9.3" stroke="#000000" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+    </div>
 
     <div class="social-icons">
         <a href="https://discord.gg/s2nVtG9nQG" target="_blank" class="discord" title="Discord">
@@ -221,31 +291,64 @@
         <div class="track-artist">slowed remix</div>
     </div>
 
+    <div class="view-counter">
+        <i class="fas fa-eye"></i>
+        <span id="views-count">12,482</span>
+    </div>
+
 </div>
 
-<!-- Скрипт логики клика -->
 <script>
     const overlay = document.getElementById('click-overlay');
     const mainContent = document.getElementById('main-content');
     const music = document.getElementById('bg-music');
+    const viewsEl = document.getElementById('views-count');
+    const hintText = document.getElementById('hint-text');
+
+    // Плавное переключение языков (RU <-> EN)
+    const phrases = ["нажми чтобы войти", "click to enter"];
+    let phraseIndex = 0;
+    const switchInterval = setInterval(() => {
+        hintText.classList.remove('fade-in');
+        hintText.classList.add('fade-out');
+
+        setTimeout(() => {
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            hintText.textContent = phrases[phraseIndex];
+            hintText.classList.remove('fade-out');
+            hintText.classList.add('fade-in');
+        }, 500);
+    }, 2400);
+
+    // Счетчик просмотров
+    const baseViews = 12482;
+    let totalViews = localStorage.getItem('site_total_views');
+
+    if (!totalViews || parseInt(totalViews) < baseViews) {
+        totalViews = baseViews;
+    } else {
+        totalViews = parseInt(totalViews);
+    }
+
+    const hasCounted = localStorage.getItem('user_already_counted');
+    if (!hasCounted) {
+        totalViews += 1;
+        localStorage.setItem('site_total_views', totalViews);
+        localStorage.setItem('user_already_counted', 'true');
+    }
+
+    viewsEl.textContent = Number(totalViews).toLocaleString('en-US');
 
     document.body.addEventListener('click', function() {
-        // Запускаем музыку
+        clearInterval(switchInterval);
         if (music.paused) {
             music.play();
-            music.volume = 0.5; // Громкость 50%
+            music.volume = 0.5;
         }
-        
-        // Прячем черный экран
         overlay.classList.add('hidden');
-        
-        // Плавно показываем профиль
         mainContent.classList.add('visible');
-        
-        // Разрешаем скролл
         document.body.style.overflow = 'auto';
-        
-    }, { once: true }); // Сработает строго один раз
+    }, { once: true });
 </script>
 
 </body>
