@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>WWK | TheReconVPN</title>
+    <!-- Ссылка на твою иконку во вкладке браузера -->
+    <link rel="icon" type="image/jpeg" href="https://i.pinimg.com/736x/3f/49/de/3f49de520a53a87b22fe813efce583f2.jpg">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -60,7 +63,7 @@
             visibility: hidden;
         }
 
-        /* Основной блок (сделан чуть шире, чтобы блок с QR отлично вписался) */
+        /* Основной блок */
         .container {
             max-width: 580px;
             width: 100%;
@@ -157,14 +160,14 @@
             letter-spacing: 0.5px;
         }
 
-        /* ТОЧНО КАК НА СКРИНЕ: QR слева, текст справа по центру */
+        /* Блок VPN: QR слева, текст справа ровно по центру */
         .vpn-section {
             border-top: 1px solid #141418;
             border-bottom: 1px solid #141418;
             padding: 24px 0;
             margin-bottom: 20px;
             display: flex;
-            align-items: center; /* Центрирует текст по вертикали относительно QR */
+            align-items: center;
             gap: 24px;
             text-align: left;
         }
@@ -307,7 +310,7 @@
         Work time: 11:00 — 00:00 MSK
     </div>
 
-    <!-- Блок VPN (QR слева, текст справа ровно по центру) -->
+    <!-- Блок VPN с твоим QR-кодом -->
     <div class="vpn-section">
         <img src="qr-code.png" alt="QR TheReconVPNbot" class="vpn-qr">
         <div class="vpn-details">
