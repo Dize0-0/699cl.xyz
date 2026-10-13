@@ -109,7 +109,7 @@
             width: 22px;
             height: 22px;
             border-radius: 50%;
-            background: #747f8d; /* offline по умолчанию */
+            background: #747f8d;
             border: 4px solid #000000;
             transition: background 0.3s ease, box-shadow 0.3s ease;
         }
@@ -162,23 +162,19 @@
         .social-icons a {
             color: #8a8a9a;
             font-size: 27px;
-            transition: 0.2s ease;
+            transition: 0.25s ease;
             text-decoration: none;
             display: inline-block;
         }
 
+        /* Анимация иконок без синего цвета для ТГ */
         .social-icons a:hover {
             color: #ffffff;
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.06);
+            filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.25));
         }
 
-        .social-icons .discord:hover { color: #5865F2; }
-        .social-icons .telegram:hover { color: #26A5E4; }
-        .social-icons .instagram:hover { color: #E1306C; }
-        .social-icons .tiktok:hover { color: #ffffff; }
-        .social-icons .youtube:hover { color: #FF0000; }
-
-        /* Виджет Lanyard (Discord активность) */
+        /* Виджет Lanyard (кликабельный переход в ЛС Discord) */
         .lanyard-card {
             background: #0a0a0d;
             border: 1px solid #1a1a22;
@@ -190,11 +186,14 @@
             align-items: center;
             gap: 12px;
             text-align: left;
-            transition: border-color 0.2s ease;
+            text-decoration: none;
+            transition: all 0.25s ease;
         }
 
         .lanyard-card:hover {
-            border-color: #2c2c38;
+            background: #101015;
+            border-color: #383846;
+            transform: translateY(-2px);
         }
 
         .lanyard-icon {
@@ -205,7 +204,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #5865F2;
+            color: #ffffff;
             font-size: 18px;
             flex-shrink: 0;
             overflow: hidden;
@@ -247,7 +246,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* Кликабельная карточка для TheReconVPNbot */
+        /* Кликабельная карточка TheReconVPNbot (строгий Ч/Б стиль без синего) */
         .vpn-card {
             display: flex;
             align-items: center;
@@ -259,15 +258,15 @@
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 22px;
-            transition: all 0.25s ease;
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
             position: relative;
         }
 
         .vpn-card:hover {
-            background: #0f0f15;
-            border-color: #26A5E4;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(38, 165, 228, 0.12);
+            background: #111116;
+            border-color: rgba(255, 255, 255, 0.35);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(255, 255, 255, 0.06);
         }
 
         .vpn-qr {
@@ -278,6 +277,11 @@
             padding: 6px;
             flex-shrink: 0;
             object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .vpn-card:hover .vpn-qr {
+            transform: scale(1.03);
         }
 
         .vpn-details {
@@ -296,11 +300,6 @@
             font-size: 19px;
             font-weight: 600;
             letter-spacing: -0.3px;
-            transition: color 0.2s;
-        }
-
-        .vpn-card:hover .vpn-details h3 {
-            color: #26A5E4;
         }
 
         .vpn-details p {
@@ -314,20 +313,20 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(38, 165, 228, 0.12);
-            color: #26A5E4;
-            border: 1px solid rgba(38, 165, 228, 0.3);
+            background: rgba(255, 255, 255, 0.06);
+            color: #d0d0d8;
+            border: 1px solid rgba(255, 255, 255, 0.14);
             padding: 6px 12px;
             border-radius: 8px;
             font-size: 12px;
-            font-weight: 600;
-            transition: all 0.2s ease;
+            font-weight: 500;
+            transition: all 0.25s ease;
         }
 
         .vpn-card:hover .vpn-btn {
-            background: #26A5E4;
-            color: #ffffff;
-            border-color: #26A5E4;
+            background: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
         }
 
         /* Цены / Девайсы */
@@ -355,7 +354,7 @@
             color: #ffffff;
         }
 
-        /* Музыкальный трек (статичный, без звука) */
+        /* Музыкальный трек с кнопкой включения */
         .track-info {
             border-top: 1px solid #141418;
             padding-top: 16px;
@@ -365,6 +364,11 @@
             align-items: center;
             justify-content: space-between;
             text-align: left;
+            gap: 12px;
+        }
+
+        .track-text {
+            overflow: hidden;
         }
 
         .track-title {
@@ -382,9 +386,32 @@
             margin-top: 2px;
         }
 
-        .track-icon {
-            color: #4a4a55;
-            font-size: 15px;
+        .play-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #0d0d12;
+            border: 1px solid #22222a;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .play-btn:hover {
+            background: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
+            transform: scale(1.06);
+        }
+
+        .play-btn.playing {
+            border-color: #ffffff;
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
         }
 
         @media (max-width: 520px) {
@@ -406,6 +433,9 @@
     <span id="hint-text" class="press-hint fade-in">нажми чтобы войти</span>
 </div>
 
+<!-- Аудио (по умолчанию стоит на паузе, включается кнопкой внизу) -->
+<audio id="bg-music" src="music.mp3?v=2" loop></audio>
+
 <div id="main-content" class="container">
 
     <div class="avatar-wrapper">
@@ -426,39 +456,40 @@
     </div>
 
     <div class="social-icons">
-        <a href="https://discord.gg/s2nVtG9nQG" target="_blank" class="discord" title="Discord">
+        <!-- Ссылка сразу на твой профиль/ЛС в Discord -->
+        <a href="https://discord.com/users/1228728952865030223" target="_blank" title="Discord ЛС">
             <i class="fab fa-discord"></i>
         </a>
-        <a href="https://t.me/your_support_user" target="_blank" class="telegram" title="Telegram">
+        <a href="https://t.me/your_support_user" target="_blank" title="Telegram">
             <i class="fab fa-telegram"></i>
         </a>
-        <a href="https://www.instagram.com/uwwkuq" target="_blank" class="instagram" title="Instagram">
+        <a href="https://www.instagram.com/uwwkuq" target="_blank" title="Instagram">
             <i class="fab fa-instagram"></i>
         </a>
-        <a href="https://www.tiktok.com/@uwwkuq?lang=ru-RU" target="_blank" class="tiktok" title="TikTok">
+        <a href="https://www.tiktok.com/@uwwkuq?lang=ru-RU" target="_blank" title="TikTok">
             <i class="fab fa-tiktok"></i>
         </a>
-        <a href="https://www.youtube.com/@uwwkuq" target="_blank" class="youtube" title="YouTube">
+        <a href="https://www.youtube.com/@uwwkuq" target="_blank" title="YouTube">
             <i class="fab fa-youtube"></i>
         </a>
     </div>
 
-    <!-- Виджет Discord Lanyard -->
-    <div class="lanyard-card" id="lanyard-card">
+    <!-- Виджет Discord Lanyard (при клике тоже открывает твой профиль Discord) -->
+    <a href="https://discord.com/users/1228728952865030223" target="_blank" class="lanyard-card" id="lanyard-card" title="Открыть профиль Discord">
         <div class="lanyard-icon" id="lanyard-icon">
             <i class="fab fa-discord"></i>
         </div>
         <div class="lanyard-info">
-            <div class="lanyard-status-title" id="lanyard-title">Discord статус</div>
-            <div class="lanyard-status-sub" id="lanyard-sub">Подключение к Lanyard...</div>
+            <div class="lanyard-status-title" id="lanyard-title">Discord</div>
+            <div class="lanyard-status-sub" id="lanyard-sub">Загрузка статуса...</div>
         </div>
-    </div>
+    </a>
 
     <div class="store-info">
         Work time: 11:00 — 00:00 MSK
     </div>
 
-    <!-- Кликабельная карточка TheReconVPNbot -->
+    <!-- Кликабельная карточка TheReconVPNbot (без синего цвета) -->
     <a href="https://t.me/TheReconVPNbot" target="_blank" class="vpn-card">
         <img src="qrcode.png" alt="QR TheReconVPNbot" class="vpn-qr">
         <div class="vpn-details">
@@ -477,21 +508,22 @@
         <p><span>Attack Shark X68 HE</span> <span>€49</span></p>
     </div>
 
+    <!-- Плеер: по умолчанию выключен, можно включить по кнопке -->
     <div class="track-info">
-        <div>
+        <div class="track-text">
             <div class="track-title">ANNA ASTI - Повело</div>
             <div class="track-artist">slowed remix</div>
         </div>
-        <i class="fas fa-music track-icon" title="Без звука"></i>
+        <button id="play-toggle" class="play-btn" title="Включить / выключить музыку">
+            <i id="play-icon" class="fas fa-play"></i>
+        </button>
     </div>
 
 </div>
 
 <script>
-    // ======= 1. НАСТРОЙКА LANYARD API (DISCORD) =======
-    // Вставь сюда свой цифровой Discord User ID (например: "123456789012345678")
-    // Чтобы Lanyard видел твой статус, нужно зайти на их официальный сервер: https://discord.gg/lanyard
-    const DISCORD_USER_ID = "ВСТАВЬ_СВОЙ_DISCORD_ID";
+    // ======= 1. LANYARD API (ТВОЙ DISCORD ID) =======
+    const DISCORD_USER_ID = "1228728952865030223";
 
     const statusDot = document.getElementById('status-dot');
     const lanyardTitle = document.getElementById('lanyard-title');
@@ -499,33 +531,33 @@
     const lanyardIcon = document.getElementById('lanyard-icon');
 
     const statusNames = {
-        online: "В сети (Online)",
-        idle: "Не активен (Idle)",
-        dnd: "Не беспокоить (DND)",
-        offline: "Не в сети (Offline)"
+        online: "В сети",
+        idle: "Не активен",
+        dnd: "Не беспокоить",
+        offline: "Не в сети"
     };
 
     function updateLanyardUI(data) {
         if (!data) return;
 
-        // Обновляем цвет точки на аватарке
         const status = data.discord_status || 'offline';
         statusDot.className = `status-dot ${status}`;
 
-        // Ищем активную игру или приложение (кроме кастомного статуса type 4)
+        const dUser = data.discord_user;
+        const displayName = dUser ? (dUser.global_name || dUser.username) : "Discord";
+
         const activities = data.activities || [];
         const customStatus = activities.find(a => a.type === 4);
         const mainActivity = activities.find(a => a.type !== 4);
 
-        if ( data.listening_to_spotify && data.spotify ) {
-            lanyardTitle.textContent = `Слушает Spotify`;
+        if (data.listening_to_spotify && data.spotify) {
+            lanyardTitle.textContent = `${displayName} • Spotify`;
             lanyardSub.textContent = `${data.spotify.artist} — ${data.spotify.song}`;
             lanyardIcon.innerHTML = `<img src="${data.spotify.album_art_url}" alt="Spotify">`;
         } else if (mainActivity) {
             lanyardTitle.textContent = mainActivity.name;
             lanyardSub.textContent = mainActivity.details || mainActivity.state || statusNames[status];
-            
-            // Если у игры есть картинка в Rich Presence
+
             if (mainActivity.assets && mainActivity.assets.large_image) {
                 let imgUrl = mainActivity.assets.large_image;
                 if (imgUrl.startsWith("mp:external/")) {
@@ -538,19 +570,17 @@
                 lanyardIcon.innerHTML = `<i class="fas fa-gamepad"></i>`;
             }
         } else {
-            lanyardTitle.textContent = statusNames[status] || "Не в сети";
-            lanyardSub.textContent = (customStatus && customStatus.state) ? customStatus.state : "Нет текущей активности";
-            lanyardIcon.innerHTML = `<i class="fab fa-discord"></i>`;
+            lanyardTitle.textContent = `${displayName} (${statusNames[status] || "Не в сети"})`;
+            lanyardSub.textContent = (customStatus && customStatus.state) ? customStatus.state : "Написать в Discord ↗";
+            if (dUser && dUser.avatar) {
+                lanyardIcon.innerHTML = `<img src="https://cdn.discordapp.com/avatars/${dUser.id}/${dUser.avatar}.png?size=64" alt="Avatar">`;
+            } else {
+                lanyardIcon.innerHTML = `<i class="fab fa-discord"></i>`;
+            }
         }
     }
 
     function connectLanyard() {
-        if (!DISCORD_USER_ID || DISCORD_USER_ID === "ВСТАВЬ_СВОЙ_DISCORD_ID") {
-            lanyardTitle.textContent = "Discord (Lanyard API)";
-            lanyardSub.textContent = "Укажи свой DISCORD_USER_ID в коде";
-            return;
-        }
-
         const ws = new WebSocket("wss://api.lanyard.rest/socket");
         let heartbeatInterval;
 
@@ -558,13 +588,11 @@
             const msg = JSON.parse(event.data);
 
             if (msg.op === 1) {
-                // Отправляем подписку на наш ID
                 ws.send(JSON.stringify({
                     op: 2,
                     d: { subscribe_to_id: DISCORD_USER_ID }
                 }));
 
-                // Поддерживаем соединение
                 heartbeatInterval = setInterval(() => {
                     ws.send(JSON.stringify({ op: 3 }));
                 }, msg.d.heartbeat_interval);
@@ -575,6 +603,11 @@
             }
         };
 
+        ws.onerror = () => {
+            lanyardTitle.textContent = "Discord";
+            lanyardSub.textContent = "Открыть профиль ↗";
+        };
+
         ws.onclose = () => {
             clearInterval(heartbeatInterval);
             setTimeout(connectLanyard, 5000);
@@ -583,7 +616,26 @@
 
     connectLanyard();
 
-    // ======= 2. ЭКРАН ВХОДА (БЕЗ ЗВУКА) =======
+    // ======= 2. КНОПКА ВКЛЮЧЕНИЯ / ВЫКЛЮЧЕНИЯ МУЗЫКИ =======
+    const music = document.getElementById('bg-music');
+    const playToggle = document.getElementById('play-toggle');
+    const playIcon = document.getElementById('play-icon');
+    music.volume = 0.5;
+
+    playToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (music.paused) {
+            music.play();
+            playIcon.className = 'fas fa-pause';
+            playToggle.classList.add('playing');
+        } else {
+            music.pause();
+            playIcon.className = 'fas fa-play';
+            playToggle.classList.remove('playing');
+        }
+    });
+
+    // ======= 3. ЭКРАН ВХОДА (НЕ ЗАПУСКАЕТ МУЗЫКУ САМ) =======
     const overlay = document.getElementById('click-overlay');
     const mainContent = document.getElementById('main-content');
     const hintText = document.getElementById('hint-text');
@@ -602,7 +654,7 @@
         }, 500);
     }, 2400);
 
-    document.body.addEventListener('click', function() {
+    overlay.addEventListener('click', function() {
         clearInterval(switchInterval);
         overlay.classList.add('hidden');
         mainContent.classList.add('visible');
