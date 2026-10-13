@@ -65,7 +65,7 @@
 
         /* Основной блок */
         .container {
-            max-width: 580px;
+            max-width: 540px;
             width: 100%;
             text-align: center;
             opacity: 0;
@@ -78,29 +78,53 @@
             transform: translateY(0);
         }
 
-        .avatar {
+        /* Аватарка + индикатор статуса Discord */
+        .avatar-wrapper {
+            position: relative;
             width: 130px;
             height: 130px;
+            margin: 0 auto 16px;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            margin: 0 auto 16px;
             display: block;
             border: 2px solid #2a2a32;
             box-shadow: 0 12px 32px rgba(0,0,0,0.8);
             transition: 0.3s;
         }
 
-        .avatar:hover {
+        .avatar-wrapper:hover .avatar {
             border-color: #ffffff;
             transform: scale(1.02);
         }
+
+        .status-dot {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #747f8d; /* offline по умолчанию */
+            border: 4px solid #000000;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .status-dot.online { background: #23a55a; box-shadow: 0 0 10px rgba(35, 165, 90, 0.6); }
+        .status-dot.idle { background: #f0b232; box-shadow: 0 0 10px rgba(240, 178, 50, 0.6); }
+        .status-dot.dnd { background: #f23f43; box-shadow: 0 0 10px rgba(242, 63, 67, 0.6); }
+        .status-dot.offline { background: #747f8d; }
 
         .profile-name {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .profile-name .username {
@@ -132,12 +156,12 @@
             justify-content: center;
             gap: 24px;
             flex-wrap: wrap;
-            margin-bottom: 24px;
+            margin-bottom: 18px;
         }
 
         .social-icons a {
             color: #8a8a9a;
-            font-size: 28px;
+            font-size: 27px;
             transition: 0.2s ease;
             text-decoration: none;
             display: inline-block;
@@ -150,8 +174,71 @@
 
         .social-icons .discord:hover { color: #5865F2; }
         .social-icons .telegram:hover { color: #26A5E4; }
+        .social-icons .instagram:hover { color: #E1306C; }
         .social-icons .tiktok:hover { color: #ffffff; }
         .social-icons .youtube:hover { color: #FF0000; }
+
+        /* Виджет Lanyard (Discord активность) */
+        .lanyard-card {
+            background: #0a0a0d;
+            border: 1px solid #1a1a22;
+            border-radius: 12px;
+            padding: 10px 14px;
+            margin: 0 auto 18px;
+            max-width: 360px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+            transition: border-color 0.2s ease;
+        }
+
+        .lanyard-card:hover {
+            border-color: #2c2c38;
+        }
+
+        .lanyard-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: #14141b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5865F2;
+            font-size: 18px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .lanyard-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .lanyard-info {
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .lanyard-status-title {
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lanyard-status-sub {
+            color: #8a8a9a;
+            font-size: 11.5px;
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
         .store-info {
             color: #8a8a9a;
@@ -160,21 +247,32 @@
             letter-spacing: 0.5px;
         }
 
-        /* Блок VPN: QR слева, текст справа ровно по центру */
-        .vpn-section {
-            border-top: 1px solid #141418;
-            border-bottom: 1px solid #141418;
-            padding: 24px 0;
-            margin-bottom: 20px;
+        /* Кликабельная карточка для TheReconVPNbot */
+        .vpn-card {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 22px;
             text-align: left;
+            text-decoration: none;
+            background: #09090c;
+            border: 1px solid #181820;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 22px;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .vpn-card:hover {
+            background: #0f0f15;
+            border-color: #26A5E4;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(38, 165, 228, 0.12);
         }
 
         .vpn-qr {
-            width: 110px;
-            height: 110px;
+            width: 106px;
+            height: 106px;
             background: #ffffff;
             border-radius: 10px;
             padding: 6px;
@@ -182,31 +280,57 @@
             object-fit: contain;
         }
 
-        .vpn-details h3 {
-            color: #ffffff;
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            letter-spacing: -0.3px;
+        .vpn-details {
+            flex: 1;
         }
 
-        .vpn-details h3 a {
+        .vpn-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .vpn-details h3 {
             color: #ffffff;
-            text-decoration: none;
+            font-size: 19px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
             transition: color 0.2s;
         }
 
-        .vpn-details h3 a:hover {
+        .vpn-card:hover .vpn-details h3 {
             color: #26A5E4;
         }
 
         .vpn-details p {
             color: #8a8a9a;
             font-size: 13px;
-            line-height: 1.5;
+            line-height: 1.45;
+            margin-bottom: 12px;
         }
 
-        /* Цены */
+        .vpn-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(38, 165, 228, 0.12);
+            color: #26A5E4;
+            border: 1px solid rgba(38, 165, 228, 0.3);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .vpn-card:hover .vpn-btn {
+            background: #26A5E4;
+            color: #ffffff;
+            border-color: #26A5E4;
+        }
+
+        /* Цены / Девайсы */
         .setup {
             margin-bottom: 20px;
         }
@@ -231,12 +355,15 @@
             color: #ffffff;
         }
 
-        /* Музыкальный трек */
+        /* Музыкальный трек (статичный, без звука) */
         .track-info {
             border-top: 1px solid #141418;
             padding-top: 16px;
             max-width: 400px;
             margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             text-align: left;
         }
 
@@ -255,15 +382,21 @@
             margin-top: 2px;
         }
 
+        .track-icon {
+            color: #4a4a55;
+            font-size: 15px;
+        }
+
         @media (max-width: 520px) {
             .container { max-width: 100%; }
-            .avatar { width: 110px; height: 110px; }
+            .avatar-wrapper { width: 110px; height: 110px; }
             .profile-name .username { font-size: 20px; }
             .verified-badge { width: 18px; height: 18px; }
             .social-icons a { font-size: 24px; }
-            .vpn-section { flex-direction: column; text-align: center; }
+            .vpn-card { flex-direction: column; text-align: center; padding: 18px; }
+            .vpn-header { justify-content: center; }
             .vpn-details { text-align: center; }
-            .setup p, .track-info { max-width: 280px; }
+            .setup p, .track-info { max-width: 290px; }
         }
     </style>
 </head>
@@ -273,11 +406,12 @@
     <span id="hint-text" class="press-hint fade-in">нажми чтобы войти</span>
 </div>
 
-<audio id="bg-music" src="music.mp3?v=2" loop></audio>
-
 <div id="main-content" class="container">
 
-    <img class="avatar" src="https://avatars.mds.yandex.net/i?id=59e8220ea8a8b0cd894a964d271707c218ff9d55-12184992-images-thumbs&n=13" alt="WWK" />
+    <div class="avatar-wrapper">
+        <img class="avatar" id="discord-avatar" src="https://avatars.mds.yandex.net/i?id=59e8220ea8a8b0cd894a964d271707c218ff9d55-12184992-images-thumbs&n=13" alt="WWK" />
+        <div id="status-dot" class="status-dot offline" title="Discord Status"></div>
+    </div>
 
     <div class="profile-name">
         <span class="username">wwk</span>
@@ -298,6 +432,9 @@
         <a href="https://t.me/your_support_user" target="_blank" class="telegram" title="Telegram">
             <i class="fab fa-telegram"></i>
         </a>
+        <a href="https://www.instagram.com/uwwkuq" target="_blank" class="instagram" title="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
         <a href="https://www.tiktok.com/@uwwkuq?lang=ru-RU" target="_blank" class="tiktok" title="TikTok">
             <i class="fab fa-tiktok"></i>
         </a>
@@ -306,19 +443,34 @@
         </a>
     </div>
 
+    <!-- Виджет Discord Lanyard -->
+    <div class="lanyard-card" id="lanyard-card">
+        <div class="lanyard-icon" id="lanyard-icon">
+            <i class="fab fa-discord"></i>
+        </div>
+        <div class="lanyard-info">
+            <div class="lanyard-status-title" id="lanyard-title">Discord статус</div>
+            <div class="lanyard-status-sub" id="lanyard-sub">Подключение к Lanyard...</div>
+        </div>
+    </div>
+
     <div class="store-info">
         Work time: 11:00 — 00:00 MSK
     </div>
 
-    <!-- Блок VPN (QR слева, текст справа по центру) -->
-    <div class="vpn-section">
-        <!-- Исправлено на qrcode.png в соответствии с твоим GitHub -->
+    <!-- Кликабельная карточка TheReconVPNbot -->
+    <a href="https://t.me/TheReconVPNbot" target="_blank" class="vpn-card">
         <img src="qrcode.png" alt="QR TheReconVPNbot" class="vpn-qr">
         <div class="vpn-details">
-            <h3><a href="https://t.me/TheReconVPNbot" target="_blank">TheReconVPNbot</a></h3>
+            <div class="vpn-header">
+                <h3>TheReconVPNbot</h3>
+            </div>
             <p>Быстрый и безопасный VPN-сервис. Настройте конфигурации и подключение в пару кликов прямо в Telegram.</p>
+            <span class="vpn-btn">
+                <i class="fab fa-telegram-plane"></i> Открыть в Telegram ↗
+            </span>
         </div>
-    </div>
+    </a>
 
     <div class="setup">
         <p><span>Attack Shark R1</span> <span>€25</span></p>
@@ -326,16 +478,114 @@
     </div>
 
     <div class="track-info">
-        <div class="track-title">ANNA ASTI - Повело</div>
-        <div class="track-artist">slowed remix</div>
+        <div>
+            <div class="track-title">ANNA ASTI - Повело</div>
+            <div class="track-artist">slowed remix</div>
+        </div>
+        <i class="fas fa-music track-icon" title="Без звука"></i>
     </div>
 
 </div>
 
 <script>
+    // ======= 1. НАСТРОЙКА LANYARD API (DISCORD) =======
+    // Вставь сюда свой цифровой Discord User ID (например: "123456789012345678")
+    // Чтобы Lanyard видел твой статус, нужно зайти на их официальный сервер: https://discord.gg/lanyard
+    const DISCORD_USER_ID = "ВСТАВЬ_СВОЙ_DISCORD_ID";
+
+    const statusDot = document.getElementById('status-dot');
+    const lanyardTitle = document.getElementById('lanyard-title');
+    const lanyardSub = document.getElementById('lanyard-sub');
+    const lanyardIcon = document.getElementById('lanyard-icon');
+
+    const statusNames = {
+        online: "В сети (Online)",
+        idle: "Не активен (Idle)",
+        dnd: "Не беспокоить (DND)",
+        offline: "Не в сети (Offline)"
+    };
+
+    function updateLanyardUI(data) {
+        if (!data) return;
+
+        // Обновляем цвет точки на аватарке
+        const status = data.discord_status || 'offline';
+        statusDot.className = `status-dot ${status}`;
+
+        // Ищем активную игру или приложение (кроме кастомного статуса type 4)
+        const activities = data.activities || [];
+        const customStatus = activities.find(a => a.type === 4);
+        const mainActivity = activities.find(a => a.type !== 4);
+
+        if ( data.listening_to_spotify && data.spotify ) {
+            lanyardTitle.textContent = `Слушает Spotify`;
+            lanyardSub.textContent = `${data.spotify.artist} — ${data.spotify.song}`;
+            lanyardIcon.innerHTML = `<img src="${data.spotify.album_art_url}" alt="Spotify">`;
+        } else if (mainActivity) {
+            lanyardTitle.textContent = mainActivity.name;
+            lanyardSub.textContent = mainActivity.details || mainActivity.state || statusNames[status];
+            
+            // Если у игры есть картинка в Rich Presence
+            if (mainActivity.assets && mainActivity.assets.large_image) {
+                let imgUrl = mainActivity.assets.large_image;
+                if (imgUrl.startsWith("mp:external/")) {
+                    imgUrl = `https://media.discordapp.net/external/${imgUrl.replace("mp:external/", "")}`;
+                } else {
+                    imgUrl = `https://cdn.discordapp.com/app-assets/${mainActivity.application_id}/${imgUrl}.png`;
+                }
+                lanyardIcon.innerHTML = `<img src="${imgUrl}" alt="Activity">`;
+            } else {
+                lanyardIcon.innerHTML = `<i class="fas fa-gamepad"></i>`;
+            }
+        } else {
+            lanyardTitle.textContent = statusNames[status] || "Не в сети";
+            lanyardSub.textContent = (customStatus && customStatus.state) ? customStatus.state : "Нет текущей активности";
+            lanyardIcon.innerHTML = `<i class="fab fa-discord"></i>`;
+        }
+    }
+
+    function connectLanyard() {
+        if (!DISCORD_USER_ID || DISCORD_USER_ID === "ВСТАВЬ_СВОЙ_DISCORD_ID") {
+            lanyardTitle.textContent = "Discord (Lanyard API)";
+            lanyardSub.textContent = "Укажи свой DISCORD_USER_ID в коде";
+            return;
+        }
+
+        const ws = new WebSocket("wss://api.lanyard.rest/socket");
+        let heartbeatInterval;
+
+        ws.onmessage = (event) => {
+            const msg = JSON.parse(event.data);
+
+            if (msg.op === 1) {
+                // Отправляем подписку на наш ID
+                ws.send(JSON.stringify({
+                    op: 2,
+                    d: { subscribe_to_id: DISCORD_USER_ID }
+                }));
+
+                // Поддерживаем соединение
+                heartbeatInterval = setInterval(() => {
+                    ws.send(JSON.stringify({ op: 3 }));
+                }, msg.d.heartbeat_interval);
+            } else if (msg.op === 0) {
+                if (msg.t === "INIT_STATE" || msg.t === "PRESENCE_UPDATE") {
+                    updateLanyardUI(msg.d);
+                }
+            }
+        };
+
+        ws.onclose = () => {
+            clearInterval(heartbeatInterval);
+            setTimeout(connectLanyard, 5000);
+        };
+    }
+
+    connectLanyard();
+
+    // ======= 2. ЭКРАН ВХОДА (БЕЗ ЗВУКА) =======
     const overlay = document.getElementById('click-overlay');
     const mainContent = document.getElementById('main-content');
-    const music = document.getElementById('bg-music');
     const hintText = document.getElementById('hint-text');
 
     const phrases = ["нажми чтобы войти", "click to enter"];
@@ -354,10 +604,6 @@
 
     document.body.addEventListener('click', function() {
         clearInterval(switchInterval);
-        if (music.paused) {
-            music.play();
-            music.volume = 0.5;
-        }
         overlay.classList.add('hidden');
         mainContent.classList.add('visible');
         document.body.style.overflow = 'auto';
